@@ -397,7 +397,9 @@ and the controls move the score by less than the noise band in either direction 
 \textsc{DiaGraMo} the shift is nominally \emph{better} than the authentic images. So the LPQ gain,
 where it exists, comes from \emph{where} along the trace a value occurred and not from the
 distribution of values, which is the only thing a minimap encodes that a summary vector does not.
-The larger ResNet18 gains of \cref{tab:headline} have not been put through the same controls.
+The larger ResNet18 gains of \cref{tab:headline} have been put through the same controls on
+\textsc{DiaGraMo}, reported below; on the two cohorts that carry the cross-cohort gain they have
+not.
 
 \input{tables/diagramo}
 
@@ -421,9 +423,19 @@ can be read as evidence about pen dynamics, and both point the same way.
 
 First, the entire margin on the writing slots comes from the frozen ResNet18 arm. The LPQ arm --- the
 descriptor the method was defined with --- sits at or below the static trace in every
-\textsc{DiaGraMo} task set ($-0.021$ on all $14$, $-0.018$ on graphomotor, $-0.012$ on writing). An
-effect that appears under one descriptor and not the other, in a cohort where the spatial controls
-cost nothing, is not well described as localised dynamics.
+\textsc{DiaGraMo} task set ($-0.021$ on all $14$, $-0.018$ on graphomotor, $-0.012$ on writing).
+Putting the two spatial controls through the frozen backbone instead, which this section previously
+named as the experiment we were missing, shows why. The test needs a static trace described by the
+same backbone, an arm the pipeline did not have; against that baseline the encoding adds nothing in
+this cohort, in any task set: $0.726$ static against $0.719$ minimap on the writing slots, $0.672$
+against $0.660$ on graphomotor and $0.714$ against $0.708$ on all $14$, every contrast a null on
+screening splits. The $+0.069$ margin is thus the difference between two descriptors over the same
+images rather than between two encodings under one descriptor, and within the descriptor there is no
+margin for a control to remove. The controls behave accordingly: on the writing slots they cost
+$+0.020$ and $+0.002$, both inside the noise band and both intervals across zero. Their direction
+and a threshold of $+0.03$ were registered as H4 before the run, against the alternative H5 that
+they would cost nothing because neither control changes how much a child wrote; H4 fails and H5 is
+weakly supported, as the addendum said in advance it could only be.
 
 Second, \cref{tab:diagramo} puts the acquisition arms beside the image arms, and the split falls
 exactly where the hypothesis broke. The narrow floor is at chance in both halves ($0.432$ and
@@ -452,13 +464,15 @@ running it, for a stated reason: the controls are implemented for the LPQ arm, w
 this cohort, so there is nothing positional for them to destroy whichever half they run on. H3 is
 reported as uninformative rather than as support.
 
-\paragraph{The experiment we are missing.} That leaves the ResNet18 margin --- the one that made H1
-and H2 fail --- without any localisation test at all. Rendering the two controls and describing
-them with the frozen backbone is the direct experiment, and it requires no new idea. It is
-registered, with its hypotheses and their directions, as an addendum to the cohort's protocol, and
-has not been run. We state the gap rather than argue around it: the cross-cohort rule
-stands as a regularity with a mechanism control behind it, and its one within-cohort test neither
-confirmed it nor, given the nuisance ceiling above, cleanly refuted it.
+\paragraph{What the backbone controls leave open.} The ResNet18 margin on \textsc{DiaGraMo} is no
+longer untested, and the test dissolved the thing it was aimed at: there is no within-descriptor
+margin on that cohort for a control to remove. The same question stays open where it matters more
+for the rule. On \textsc{ParkinsonHW} and \textsc{Zhu} the headline margins are also ResNet18
+margins, while the gains the controls act on are the LPQ ones, $+0.086$ and $+0.109$, which do fall
+back to baseline when position is destroyed. A static trace described by the backbone on those two
+cohorts needs no new rendering and is the first thing we would run next. Until it exists, the
+cross-cohort rule rests on the arm where the controls locate the gain, and its one within-cohort
+test neither confirmed it nor, given the nuisance ceiling above, cleanly refuted it.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -491,11 +505,19 @@ artefacts we measured.
 smoothed and temporally aligned by the original authors, so it is reported as a directional control
 rather than as a measurement of raw dynamics.
 
-\paragraph{The mechanism control does not cover the arm on which H1 and H2 failed.} The spatial
-controls are rendered and described with LPQ only. On \textsc{DiaGraMo} the LPQ arm has no gain, so
-the controls there are nearly powerless, and the ResNet18 margin that broke H1 and H2 is
-consequently untested by them. This is the one experiment whose absence changes how much
-\cref{sec:when} can claim, which is why it is named there as well as here.
+\paragraph{The headline margin is the better of two descriptors.} $\Delta$ in \cref{tab:headline} is
+the best minimap arm over the LPQ static trace, and on four of the six cohorts with a participant
+endpoint the best minimap arm is the ResNet18 one, so that margin mixes a change of encoding with a
+change of descriptor. Within LPQ the gains are $+0.086$ on \textsc{ParkinsonHW} and $+0.109$ on
+\textsc{Zhu} --- still far outside the noise band, and the gains the spatial controls act on. On
+\textsc{DiaGraMo}, the one cohort where a backbone static baseline now exists, the ResNet18 margin
+does not survive it. We report $\Delta$ as defined and name the within-descriptor baseline on the
+remaining cohorts as the measurement this paper is missing.
+
+\paragraph{The mechanism control covers one descriptor and, on one cohort, both.} The spatial
+controls are described with LPQ on every cohort and with the frozen backbone on \textsc{DiaGraMo}
+only. Where the LPQ arm has no gain the controls have little to destroy, which is why
+\cref{sec:when} reads the DiaGraMo nulls as weak evidence rather than as demonstrations.
 
 \paragraph{SVC2004 is a single split.} It is evaluated writer-independently on one held-out
 partition, without the nested repeats the other cohorts receive, and without a floor. It supports
