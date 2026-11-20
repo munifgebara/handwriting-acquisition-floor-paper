@@ -1,0 +1,22 @@
+\begin{table}[t]
+\caption{Spatial controls on the LPQ selection arm, screening splits. Both destroy only the correspondence between position along the stroke and signal value, leaving the ink, the contact mask and every per-stroke marginal identical. A cost means the classifier reads \emph{where} the signal sits along the trace; no cost means it reads only how the values are distributed.}
+\label{tab:controls}
+\vskip 0.1in
+\begin{center}
+\begin{small}
+\begin{tabular}{lrrrrr}
+\toprule
+cohort & minimap & shift & permuted & $\delta$ shift & $\delta$ perm. \\
+\midrule
+ParkinsonHW$^{\dagger}$ & 0.738 & 0.637 & 0.624 & $-0.101$ & $-0.114$ \\
+Zhu et al. & 0.750 & 0.688 & 0.649 & $-0.062$ & $-0.101$ \\
+DiaGraMo & 0.645 & 0.669 & 0.648 & $+0.024$ & $+0.003$ \\
+Drot\'ar--Dobe\v{s} & 0.783 & 0.758 & 0.772 & $-0.025$ & $-0.011$ \\
+PaHaW & 0.590 & 0.586 & 0.607 & $-0.004$ & $+0.017$ \\
+Char.\ Trajectories & 0.989 & 0.985 & 0.989 & $-0.004$ & $+0.000$ \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
