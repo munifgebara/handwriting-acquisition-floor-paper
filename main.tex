@@ -12,7 +12,21 @@
 
 \newcommand{\theHalgorithm}{\arabic{algorithm}}
 
-\usepackage{icml2026}
+% Double-blind by default. `main-authors.tex' defines \PDMIDENTIFIED and inputs this
+% file: the [preprint] option makes icml2026.sty print the real author block, under a
+% footer that claims nothing about acceptance. Without that option the sheet replaces
+% every name below with ``Anonymous Authors'' itself, so one source serves both builds.
+\newif\ifidentified
+\ifdefined\PDMIDENTIFIED\identifiedtrue\fi
+
+\ifidentified
+  \usepackage[preprint]{icml2026}
+  \makeatletter
+  \renewcommand{\ICML@preprint}{\textit{Draft of \today{} --- not submitted.}}
+  \makeatother
+\else
+  \usepackage{icml2026}
+\fi
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -31,13 +45,25 @@
 
 \icmlsetsymbol{equal}{*}
 
+% The list and its order are the VISAPP 2027 camera-ready's, carried forward.
+% [AUTHOR VERIFICATION REQUIRED]: confirm the authorship of this study before sending.
 \begin{icmlauthorlist}
-\icmlauthor{Anonymous}{anon}
+\icmlauthor{Munif Gebara Jr.}{uem}
+\icmlauthor{\'Angel S\'anchez}{urjc}
+\icmlauthor{Yandre Maldonado e Gomes da Costa}{uem}
+\icmlauthor{Igor Scaliante Wiese}{utfpr}
+\icmlauthor{Andr\'e Felipe Ribeiro Cordeiro}{uem}
+\icmlauthor{Jamily G. S. Souza}{uem}
 \end{icmlauthorlist}
 
-\icmlaffiliation{anon}{Anonymous Institution}
+\icmlaffiliation{uem}{Departamento de Inform\'atica, Universidade Estadual de
+                      Maring\'a, Brazil}
+\icmlaffiliation{urjc}{Departamento de Inform\'atica y Estad\'istica, Universidad
+                       Rey Juan Carlos, Spain}
+\icmlaffiliation{utfpr}{Departamento de Computa\c{c}\~ao, Universidade Tecnol\'ogica
+                        Federal do Paran\'a, Brazil}
 
-\icmlcorrespondingauthor{Anonymous}{anon@example.com}
+\icmlcorrespondingauthor{Munif Gebara Jr.}{munif@munif.com.br}
 
 \icmlkeywords{time series to image, representation learning, shortcut learning,
               benchmark validity, handwriting}
@@ -605,6 +631,17 @@ to doubt the clinical phenomenon, which is well established by other means.
 The application domain is diagnostic. We make no claim of clinical utility for any model in this
 paper: the cohorts are small, the labels are study labels rather than screening outcomes, and the
 margins we report are far from what a deployed decision would require.
+
+\ifidentified
+\section*{Acknowledgements}
+
+This study was financed in part by the Coordena\c{c}\~ao de Aperfei\c{c}oamento de Pessoal
+de N\'ivel Superior --- Brasil (CAPES) --- Finance Code 001, and by a CAPES PDSE
+scholarship (process XXXXXXX). \'A.~S\'anchez acknowledges support from project
+XXXXXXXXXX.
+% [AUTHOR VERIFICATION REQUIRED]: the PDSE process number and the project reference.
+% Both were still open in the VISAPP camera-ready; the wording is that paper's.
+\fi
 
 \bibliography{main}
 \bibliographystyle{icml2026}
