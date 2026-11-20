@@ -401,6 +401,26 @@ The larger ResNet18 gains of \cref{tab:headline} have been put through the same 
 \textsc{DiaGraMo}, reported below; on the two cohorts that carry the cross-cohort gain they have
 not.
 
+\paragraph{A channel that contains nothing.} The two controls above move the real values along the
+stroke, so neither can tell whether a gain comes from what the channel contains or from the act of
+adding a channel that varies at all --- both conditions still paint the real signal. We therefore
+paint channels that carry no information about the writer and change nothing else: the acquisition
+index as a ramp, an AR(1) sequence whose lag-1 autocorrelation is taken from that recording's own
+signal so that its smoothness matches, and white noise. The nulls are written into the signal column
+the renderer passes through untransformed, so they receive the identical normalisation and
+rasterisation; the direction was registered before the run, with the threshold at which we would
+have concluded that the encoding's benefit is the channel addition rather than its content.
+
+On \textsc{Zhu}, which carries the largest reported gain in the study and has one dynamic signal so
+that no selection enters the comparison, the control passes under LPQ. The real speed channel gains
+$+0.109$ over the static trace (CI $+0.036$ to $+0.189$); the three nulls gain $+0.029$, $-0.015$
+and $-0.012$, every interval across zero. The $+0.029$ is the ramp, the null we declared weakest
+because it still encodes how the trace was parameterised in time, and we report it at the edge of
+the band rather than inside it. Under the frozen backbone the same question has no content, because
+that descriptor has no encoding gain here to explain: the bare trace reaches $0.893$ and the real
+minimap $0.879$, with every null in the same place. What a minimap paints matters to the local
+descriptor and not to the backbone, on this cohort.
+
 \input{tables/diagramo}
 
 \paragraph{The within-cohort test, and its failure.} The cross-cohort rule invites one controlled
@@ -505,14 +525,23 @@ artefacts we measured.
 smoothed and temporally aligned by the original authors, so it is reported as a directional control
 rather than as a measurement of raw dynamics.
 
-\paragraph{The headline margin is the better of two descriptors.} $\Delta$ in \cref{tab:headline} is
-the best minimap arm over the LPQ static trace, and on four of the six cohorts with a participant
-endpoint the best minimap arm is the ResNet18 one, so that margin mixes a change of encoding with a
-change of descriptor. Within LPQ the gains are $+0.086$ on \textsc{ParkinsonHW} and $+0.109$ on
-\textsc{Zhu} --- still far outside the noise band, and the gains the spatial controls act on. On
-\textsc{DiaGraMo}, the one cohort where a backbone static baseline now exists, the ResNet18 margin
-does not survive it. We report $\Delta$ as defined and name the within-descriptor baseline on the
-remaining cohorts as the measurement this paper is missing.
+\paragraph{The headline margin adds a change of encoding to a change of descriptor.} $\Delta$ in
+\cref{tab:headline} is the best minimap arm over the LPQ static trace, and on four of the six
+cohorts with a participant endpoint the best minimap arm is the ResNet18 one. On the two cohorts
+where a backbone static baseline now exists, that baseline removes the ResNet18 margin: on
+\textsc{DiaGraMo} in all three task sets, and on \textsc{Zhu} on the confirmation splits, where the
+bare trace under the backbone reaches $0.893$ against the minimap's $0.879$ and beats the LPQ
+minimap by $+0.156$. \textsc{Zhu}'s $\Delta = +0.252$ is therefore the sum of an encoding gain of
+$+0.109$, which the nulls and the spatial controls both localise, and a descriptor gain that the
+definition attributes to the encoding. We report $\Delta$ as defined, state the decomposition where
+we have measured it, and name the same baseline on \textsc{ParkinsonHW} as the measurement this
+paper is missing.
+
+\paragraph{The rule may be relative to the descriptor.} On \textsc{Zhu} the task fixes the figure,
+so we took ``the label is not in the shape'' to hold. The backbone reads the label off the bare
+trace at $0.893$, so for that descriptor the shape does carry it. Whether the antecedent of the
+rule is a property of the task or of the descriptor is not something one cohort of $58$
+participants decides, and we have not tested it; we state it because our own data raise it.
 
 \paragraph{The mechanism control covers one descriptor and, on one cohort, both.} The spatial
 controls are described with LPQ on every cohort and with the frozen backbone on \textsc{DiaGraMo}
