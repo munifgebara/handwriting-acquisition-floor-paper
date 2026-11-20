@@ -1,22 +1,22 @@
-\begin{table}[t]
-\caption{Macro F1 at the unit level on the confirmation splits, which no model or encoding choice ever saw. $\Delta$ is the gain of the best minimap arm over the static trace; \emph{kinem.} is the 83 kinematic and pressure attributes computed from the same signals; \emph{floor} is the two-number acquisition classifier of \cref{sec:floor}, which contains no handwriting at all. $\Delta_\phi$, the margin over that floor, is the quantity that carries evidence: the score alone does not.}
+\begin{table*}[t]
+\caption{Macro F1 at the unit level on the confirmation splits, which no model or encoding choice ever saw. $\Delta$ is the best minimap arm over the LPQ static trace --- the comparison every experiment here was built on --- and where the best arm is the ResNet18 one it also changes descriptor. $\Delta_w$ is that same arm against the bare trace under its \emph{own} descriptor (\cref{tab:within}), the part of $\Delta$ attributable to the encoding. \emph{kinem.} is the 83 kinematic and pressure attributes from the same signals; \emph{floor} is the two-number acquisition classifier of \cref{sec:floor}, which contains no handwriting. $\Delta_\phi$, the margin over that floor, is the quantity that carries evidence: the score alone does not.}
 \label{tab:headline}
 \vskip 0.1in
 \begin{center}
 \begin{small}
-\begin{tabular}{lrrrrrr}
+\begin{tabular}{lrrrrrrr}
 \toprule
-cohort & static & minimap & $\Delta$ & kinem. & floor & $\Delta_\phi$ \\
+cohort & static & minimap & $\Delta$ & $\Delta_w$ & kinem. & floor & $\Delta_\phi$ \\
 \midrule
-ParkinsonHW$^{\dagger}$ & 0.757 & 0.925 & $+0.168$ & 0.854 & 0.666 & $+0.259$ \\
-Zhu et al. & 0.627 & 0.879 & $+0.252$ & 0.843 & 0.473 & $+0.406$ \\
-DiaGraMo & 0.658 & 0.708 & $+0.050$ & 0.716 & 0.453 & $+0.256$ \\
-Drot\'ar--Dobe\v{s} & 0.767 & 0.777 & $+0.010$ & 0.783 & 0.929 & $-0.152$ \\
-PaHaW & 0.634 & 0.636 & $+0.002$ & 0.650 & 0.642 & $-0.006$ \\
-Char.\ Trajectories & 0.982 & 0.996 & $+0.015$ & 0.998 & 0.501 & $+0.495$ \\
+ParkinsonHW$^{\dagger}$ & 0.757 & 0.925 & $+0.168$ & $+0.014$ & 0.854 & 0.666 & $+0.259$ \\
+Zhu et al. & 0.627 & 0.879 & $+0.252$ & $-0.014$ & 0.843 & 0.473 & $+0.406$ \\
+DiaGraMo & 0.658 & 0.708 & $+0.050$ & $-0.011$ & 0.716 & 0.453 & $+0.256$ \\
+Drot\'ar--Dobe\v{s} & 0.767 & 0.777 & $+0.010$ & $+0.010$ & 0.783 & 0.929 & $-0.152$ \\
+PaHaW & 0.634 & 0.636 & $+0.002$ & $+0.002$ & 0.650 & 0.642 & $-0.006$ \\
+Char.\ Trajectories & 0.982 & 0.996 & $+0.015$ & $+0.001$ & 0.998 & 0.501 & $+0.495$ \\
 \bottomrule
 \end{tabular}
 \end{small}
 \end{center}
 \vskip -0.1in
-\end{table}
+\end{table*}

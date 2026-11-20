@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\caption{Each descriptor against its own bare trace, on the confirmation splits: the first three columns LPQ, the next three the frozen ResNet18, each $\Delta$ a minimap arm minus the static trace \emph{under the same descriptor and model grid}. \emph{descr.}\ is the remaining ingredient of the headline margin --- the identical bare trace, read by the backbone instead of by LPQ. Only the backbone's static arm is new; the other three reproduce \cref{tab:headline} exactly, on the same splits. Hypotheses, thresholds and the cohorts that can decompose into anything were registered before the run (addendum~F).}
+\label{tab:within}
+\vskip 0.1in
+\begin{center}
+\begin{small}
+\begin{tabular}{lrrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{LPQ} & \multicolumn{3}{c}{frozen ResNet18} & \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+cohort & static & minimap & $\Delta$ & static & minimap & $\Delta$ & descr. \\
+\midrule
+ParkinsonHW$^{\dagger}$ & 0.757 & 0.843 & $+0.086$ & 0.911 & 0.925 & $+0.014$ & $+0.154$ \\
+Zhu et al. & 0.627 & 0.736 & $+0.109$ & 0.893 & 0.879 & $-0.014$ & $+0.265$ \\
+DiaGraMo & 0.658 & 0.637 & $-0.021$ & 0.720 & 0.708 & $-0.011$ & $+0.061$ \\
+Drot\'ar--Dobe\v{s} & 0.767 & 0.777 & $+0.010$ & 0.825 & 0.762 & $-0.063$ & $+0.058$ \\
+PaHaW & 0.634 & 0.636 & $+0.002$ & 0.619 & 0.630 & $+0.011$ & $-0.015$ \\
+Char.\ Trajectories & 0.982 & 0.989 & $+0.008$ & 0.995 & 0.996 & $+0.001$ & $+0.013$ \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table*}

@@ -1,9 +1,10 @@
 \begin{table}[t]
-\caption{Spatial controls on the LPQ selection arm. Both destroy only the correspondence between position along the stroke and signal value, leaving the ink, the contact mask and every per-stroke marginal identical. Every column comes from the same screening-split run, so the control scores can be read directly against the \emph{static} baseline beside them: in the two cohorts with a gain, both controls return the minimap to that baseline. $^{\ddagger}$This step predates the sub-cohort restriction and runs on the full ParkinsonHW release, so its scores are not comparable with \cref{tab:headline}; the comparison that matters here is within the row.}
+\caption{Spatial controls on the LPQ selection arm. Both destroy only the correspondence between position along the stroke and signal value, leaving the ink, the contact mask and every per-stroke marginal identical. Every column is from the same screening-split run, so each control reads directly against the \emph{static} baseline beside it: in the two cohorts with a gain, both return the minimap to that baseline. $^{\ddagger}$This step predates the sub-cohort restriction and runs on the full ParkinsonHW release, so its scores are not comparable with \cref{tab:headline}; the comparison that matters is within the row.}
 \label{tab:controls}
 \vskip 0.1in
 \begin{center}
-\begin{small}
+\setlength{\tabcolsep}{2.5pt}
+\begin{footnotesize}
 \begin{tabular}{lrrrrr}
 \toprule
 cohort & static & minimap & shift & permuted & $\Delta$ \\
@@ -16,7 +17,7 @@ PaHaW & 0.604 & 0.590 & 0.586 & 0.607 & $-0.014$ \\
 Char.\ Trajectories & 0.983 & 0.989 & 0.985 & 0.989 & $+0.006$ \\
 \bottomrule
 \end{tabular}
-\end{small}
+\end{footnotesize}
 \end{center}
 \vskip -0.1in
 \end{table}
