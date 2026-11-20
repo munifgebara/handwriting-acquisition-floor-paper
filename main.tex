@@ -58,7 +58,7 @@ We run one pipeline, unchanged, across seven handwriting cohorts: five clinical 
 non-clinical, from a stylus on a graphics tablet to a bare finger on a phone screen. The encoding
 gains $+0.17$ to $+0.25$ macro F1 over the bare trace in the two cohorts where the task dictates
 the figure and only the execution differs, and nothing ($\left|\Delta\right| \leq 0.015$) in the
-three where the produced shape itself carries the label; the one cohort whose tasks mix both
+three where the produced shape itself carries the label. The one cohort whose tasks mix both
 regimes falls between them, at $+0.05$. A control that displaces the signal along the trace while
 preserving its distribution returns the score to its bare-trace baseline wherever there is a gain,
 and costs nothing where there is none. The controlled version of the test --- a directional
@@ -68,15 +68,14 @@ the rule rather than re-describing it.
 
 The second result was not by design. In three of these cohorts a classifier given two numbers that
 contain no handwriting at all --- the median sampling interval and the session clock origin ---
-matches or beats every pipeline we ran: $0.97$ inside one release of a widely used benchmark, which
-forced us to discard those recordings, and $0.93$ on a second, where it is better than every real
-arm. The level of a score on such a benchmark is therefore not evidence that handwriting was
-measured. We argue the quantity that carries
-evidence is the margin over this acquisition floor, give the ten-line procedure that measures it,
-and report it for every cohort and every result here --- including the cohort whose registered test
-failed, where six acquisition descriptors predict the label better than any image or kinematic
-pipeline we ran, and so bound how far that failure can be read as evidence about pen dynamics at
-all.
+matches or beats every pipeline we ran. It reaches $0.97$ inside one release of a widely used
+benchmark, which forced us to discard those recordings, and $0.93$ on a second, where it beats
+every real arm. The level of a score on such a benchmark is therefore not evidence that handwriting
+was measured. We argue that the quantity carrying evidence is the margin over this acquisition
+floor, give the ten-line procedure that measures it, and report it for every cohort and every
+result here. That includes the cohort whose registered test failed, where six acquisition
+descriptors predict the label better than any image or kinematic pipeline we ran --- which bounds
+how far that failure can be read as evidence about pen dynamics.
 \end{abstract}
 
 \section{Introduction}
@@ -143,15 +142,15 @@ nothing about handwriting, and the reader of such a paper currently has no way t
 \label{sec:related}
 
 \paragraph{Time series as images.} Encoding a sequence as a picture so that an image model can be
-applied to it spans Gramian angular fields \citep{wang2015gaf}, recurrence plots and Markov
-transition fields [REFERENCE NEEDED], and more recently direct rasterisations of
+applied to it spans recurrence plots \citep{eckmann1987recurrence}, Gramian angular fields and
+Markov transition fields \citep{wang2015gaf}, and more recently direct rasterisations of
 trajectories. What distinguishes the handwriting case is that the
 series already has a faithful two-dimensional embedding, so the encoding does not have to invent a
 geometry: the question is only what to do with the remaining channels.
 
 \paragraph{Handwriting as a clinical signal.} Digitised handwriting has been used as a marker for
-Parkinson's disease and for developmental dysgraphia, and has been proposed as a marker of
-cognitive decline [REFERENCE NEEDED]. The dominant
+Parkinson's disease and for developmental dysgraphia, and as a marker of cognitive decline
+\citep{werner2006handwriting}. The dominant
 representation is a vector of kinematic and pressure statistics
 \citep{drotar2016pahaw,drotar2020dysgraphia}; image-based alternatives are more recent. Our
 baselines include both.
@@ -356,7 +355,8 @@ partly on recordings that a two-number classifier separates at $0.973$.
 
 \paragraph{A narrow floor is not a clean cohort.} The two-feature probe is deliberately minimal,
 and widening it slightly changes the picture twice. Adding sample count, duration and the mean and
-standard deviation of the contact interval --- six acquisition descriptors, still no handwriting ---
+standard deviation of the contact interval --- six acquisition descriptors, none of them a property
+of the writing ---
 reaches $0.784$ on \textsc{DiaGraMo}, above every image arm and above the kinematic attributes
 ($0.716$), and $1.000$ on \textsc{Character Trajectories}, where the narrow floor is exactly
 $0.501$. The character case is instructive rather than alarming: duration and sample count encode
@@ -420,7 +420,8 @@ cost nothing, is not well described as localised dynamics.
 Second, \cref{tab:diagramo} puts the acquisition arms beside the image arms, and the split falls
 exactly where the hypothesis broke. The narrow floor is at chance in both halves ($0.432$ and
 $0.424$), so no clock artefact is involved. But six descriptors of the recording process --- sample
-count, duration and four timing statistics, no handwriting among them --- reach $\mathbf{0.846}$ on
+count, duration and four timing statistics, none of them describing the ink --- reach
+$\mathbf{0.846}$ on
 the writing slots and only $0.593$ on the graphomotor slots. On the half where the registered
 prediction failed, how much a child wrote and for how long predicts the label far better
 ($0.846$) than the best image arm ($0.703$) or the $83$ kinematic attributes ($0.789$); on the half
