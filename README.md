@@ -22,8 +22,9 @@ de modo que nenhum numero do texto pode divergir da rodada que o produziu.
 cd paper; pdflatex main; bibtex main; pdflatex main; pdflatex main
 ```
 
-## Decisao pendente
+## Como o artigo anterior e citado
 
-Como citar o short paper do VISAPP 2027 sob revisao duplo-cega esta anotado em `main.bib`,
-acima da entrada `prior2027minimaps`. A escolha tem de casar com a secao 1 e com o paragrafo
-"Reference cohort" da secao 6.
+O short paper do VISAPP 2027 entra em terceira pessoa, com a autoria real, o que o duplo-cego
+do ICML permite para trabalho anterior. As duas passagens que o citam -- a seccao 1 e o
+paragrafo "Reference cohort" da seccao 6 -- ja estavam escritas assim, de modo que nada muda
+no camera-ready. A submissao em si continua anonima (`\icmlauthor{Anonymous}`).

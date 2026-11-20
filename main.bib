@@ -4,9 +4,10 @@
 % from memory. Where a record does not state a field (Zenodo has no volume; PLOS has an article
 % number rather than a page range), the field is omitted rather than invented.
 %
-% One entry still needs a decision rather than a lookup: `prior2027minimaps`, the short paper this
-% work continues. It is accepted and not yet published, and ICML review is double-blind, so how it
-% is cited is an authorship decision. See its note.
+% `prior2027minimaps` is the short paper this work continues: accepted, not yet published. Under
+% double-blind review it is cited in the third person with its real author list, which ICML
+% permits for prior work and which the two citing passages were already written for. The author
+% list and title were read off the camera-ready in `reference/VISAPP2027-camera-ready.pdf`.
 
 @article{drotar2016pahaw,
   title   = {Evaluation of handwriting kinematics and pressure for differential
@@ -152,16 +153,19 @@
   year    = {1979}
 }
 
-% DECISION NEEDED on the entry below, and it is not a lookup. This is the short paper the
-% present work continues; it is accepted and not yet published, and ICML review is
-% double-blind. Either cite it in the third person with its real author list, which ICML
-% permits for prior work, or withhold it for review and restore it in the camera-ready.
-% Whichever is chosen has to match how Section 1 and the "Reference cohort" paragraph of
-% Section 6 refer to it. The `note` field is deliberately short, because BibTeX prints it.
+% Cited in the third person: \citet in Section 1 and \citep in the "Reference cohort" paragraph
+% of Section 6 both read as someone else's work, so no passage changes in the camera-ready.
+% "Gebara Jr." is braced so BibTeX keeps the suffix with the surname, and the two multi-word
+% Brazilian surnames are braced so the lowercase particles are not read as von parts.
+% The `note` field is deliberately short, because BibTeX prints it.
 @inproceedings{prior2027minimaps,
   title     = {Pseudodynamic Minimaps: Encoding Pen Dynamics in Handwriting Images
                for Parkinson's Disease Classification},
-  author    = {Anonymous},
+  author    = {{Gebara Jr.}, Munif and S{\'a}nchez, {\'A}ngel
+               and {Maldonado e Gomes da Costa}, Yandre
+               and Wiese, Igor Scaliante
+               and {Ribeiro Cordeiro}, Andr{\'e} Felipe
+               and Souza, Jamily G. S.},
   booktitle = {International Conference on Computer Vision Theory and Applications
                (VISAPP)},
   year      = {2027},
