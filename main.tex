@@ -394,16 +394,16 @@ most of $\Delta$ measures.
 
 \paragraph{Where the shape carries the label, the encoding does nothing.} On
 \textsc{Drot\'ar--Dobe\v{s}} the margin is $+0.010$, on \textsc{PaHaW} $+0.002$, and on
-\textsc{Character Trajectories} $+0.015$, or $+0.001$ under its own descriptor --- all inside the
-$\pm 0.03$ band we declared as split noise. Only the character null was registered in advance as
-a directional hypothesis; the other two were not. The character cohort is the sharpest of
-the three because every arm is above $0.98$: a reader identifies a character from ink alone, so
-there is nothing for dynamics to add. We restored headroom there without choosing a task after
-seeing a metric, by running the canonical $20$-class problem over all $2{,}858$ recordings instead
-of the three declared pairs (Addendum~A of its protocol). The static trace reaches $0.944$ and the
-best minimap $0.956$: a margin of $+0.012$, positive in $23$ of the $25$ outer folds (Wilcoxon
-$p = 3 \times 10^{-7}$) and an order of magnitude below the Parkinson cohorts. A real effect, and a
-negligible one.
+\textsc{Character Trajectories} $+0.015$, or $+0.008$ under LPQ and $+0.001$ under the backbone
+--- all inside the $\pm 0.03$ band we declared as split noise. Only the character null was
+registered in advance as a directional hypothesis; the other two were not. The character cohort
+is the sharpest of the three because every arm is above $0.98$: a reader identifies a character
+from ink alone, so there is nothing for dynamics to add. We restored headroom there without
+choosing a task after seeing a metric, by running the canonical $20$-class problem over all
+$2{,}858$ recordings instead of the three declared pairs (Addendum~A of its protocol). The static
+trace reaches $0.944$ and the best minimap $0.956$: a margin of $+0.012$, positive in $23$ of the
+$25$ outer folds (Wilcoxon $p = 3 \times 10^{-7}$) and an order of magnitude below the Parkinson
+cohorts. A real effect, and a negligible one.
 
 \paragraph{Absolute size matters, but no reported number depends on it.} The screening step
 renders every available encoding under both geometries, and the paired contrast between them spans
@@ -464,14 +464,17 @@ separately as an upper bound rather than as a floor.
 minimap gains where the produced figure is imposed by the task and the label lives in the execution
 ($+0.168$ and $+0.252$, or $+0.086$ and $+0.109$ within the descriptor that carries them), and gains
 nothing where the produced shape itself carries the label ($+0.010$, $+0.002$, $+0.015$; $+0.010$,
-$+0.002$ and $+0.008$ within the descriptor). The ordering is the same under either column, which is
-why the rule is stated from the pattern rather than from the size of any one gain.
+$+0.002$ and $+0.008$ under LPQ). Both parentheses give the LPQ column of \cref{tab:within}, which
+is the descriptor in which an encoding gain exists at all. The ordering is the same under either
+column, which is why the rule is stated from the pattern rather than from the size of any one
+gain.
 \textsc{PaHaW} sits in the second group because seven of its eight
 tasks are writing, although the first is a spiral; its null is also level with its floor, so it
 weighs little either way. \textsc{DiaGraMo}, whose fourteen task slots mix the two regimes, falls
 between the groups at $+0.050$, which is where a mixture should fall --- but its within-descriptor
-margin is $-0.021$, which puts it with the nulls rather than between. The intermediate position is
-therefore an artefact of the baseline, and the cohort that was supposed to interpolate between the
+margin under LPQ is $-0.021$, which puts it with the nulls rather than between. The intermediate
+position is therefore an artefact of the baseline, and the cohort that was supposed to interpolate
+between the
 two regimes does not. The signature cohort extends the rule to a non-clinical
 label, and the character cohort anchors its null end. This is a regularity over seven datasets,
 stronger than the single-cohort evidence the recipe is usually reported with and weaker than a
@@ -629,7 +632,8 @@ rather than as a measurement of raw dynamics.
 \paragraph{The effect lives in one of our two descriptors.} $\Delta$ in \cref{tab:headline} is the
 best minimap arm over the LPQ static trace, and on four of the six cohorts with a participant
 endpoint the best arm is the ResNet18 one, so that column adds a change of descriptor to a change of
-channel; the within-descriptor margins on those four are $+0.014$, $-0.014$, $-0.011$ and $+0.001$.
+channel; the margins of those four arms against their own bare trace, under the backbone, are
+$+0.014$, $-0.014$, $-0.011$ and $+0.001$.
 We keep $\Delta$, because it is the comparison every earlier experiment here was built on and the
 two columns order the cohorts identically, but the quantity that is about the encoding is
 $\Delta_w$ --- $+0.086$ and $+0.109$, under LPQ, roughly half of what we would otherwise have
