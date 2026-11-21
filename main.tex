@@ -84,7 +84,8 @@ We run one pipeline, unchanged, across seven handwriting cohorts: five clinical 
 non-clinical, from a stylus on a graphics tablet to a bare finger on a phone screen. The encoding
 gains $+0.09$ to $+0.11$ macro F1 over the bare trace in the two cohorts where the task dictates
 the figure and only the execution differs --- with $51$ and $58$ participants, only the larger of
-the two separating from zero --- and nothing (at most $+0.010$) in the three
+the two separating from zero --- and nothing (at most $+0.010$, though redrawing the
+splits twenty times moves the largest of the three to $+0.032$) in the three
 where the produced shape carries the label in all or most tasks. The one cohort built to hold
 both regimes in quantity sits with those three ($-0.02$) rather than between the groups, where its
 reported margin of $+0.05$ would put it. Those gains are measured against the bare trace
@@ -265,7 +266,10 @@ selection, nested so that representation and hyperparameters are chosen on train
 only. \textbf{The participant is the unit}: all recordings of a participant are in the same fold,
 and participant decisions are the majority vote over the available tasks. Screening and
 confirmation use disjoint master seeds; we treat split-to-split variation of $\pm 0.03$ macro F1 as
-noise, and report no gain that does not reappear on the confirmation seed.
+noise, and report no gain that does not reappear on the confirmation seed. That band was carried
+over from an earlier study on one of these cohorts rather than measured;
+\cref{sec:splitnoise-appendix} measures it on twenty fresh seeds per cohort and reports where it
+is too narrow.
 
 \paragraph{Statistics.} Confidence intervals are $10{,}000$ label-stratified participant bootstrap
 resamples. Paired contrasts use participant-wise swap randomisation. Multiplicity is corrected by
@@ -395,7 +399,10 @@ most of $\Delta$ measures.
 \paragraph{Where the shape carries the label, the encoding does nothing.} On
 \textsc{Drot\'ar--Dobe\v{s}} the margin is $+0.010$, on \textsc{PaHaW} $+0.002$, and on
 \textsc{Character Trajectories} $+0.015$, or $+0.008$ under LPQ and $+0.001$ under the backbone
---- all inside the $\pm 0.03$ band we declared as split noise. Only the character null was
+--- all inside the $\pm 0.03$ band we declared as split noise. Of the three, only
+\textsc{Drot\'ar--Dobe\v{s}} depends on the split: twenty fresh master seeds put its margin at
+$+0.032$ on average, every one of them above the $+0.010$ we drew, so that cohort is the band's
+edge rather than its middle (\cref{sec:splitnoise-appendix}). Only the character null was
 registered in advance as a directional hypothesis; the other two were not. The character cohort
 is the sharpest of the three because every arm is above $0.98$: a reader identifies a character
 from ink alone, so there is nothing for dynamics to add. We restored headroom there without
@@ -408,19 +415,14 @@ cohorts. A real effect, and a negligible one.
 \paragraph{Absolute size matters, but no reported number depends on it.} The screening step
 renders every available encoding under both geometries, and the paired contrast between them spans
 $-0.080$ to $+0.108$ macro F1 at the participant endpoint over $37$ comparisons, $15$ of them past
-the $0.03$ rule. The direction belongs to the cohort rather than to the geometry: eight of
-\textsc{Drot\'ar--Dobe\v{s}}'s nine encodings lose under the fixed scale and four of
-\textsc{ParkinsonHW}'s five gain. Two contrasts survive Holm --- $-0.080$ on
-\textsc{Drot\'ar--Dobe\v{s}}'s altitude channel and $+0.010$ on \textsc{Character Trajectories}'
-bare trace, the second well inside the $0.03$ rule. Choosing a geometry per cohort on that evidence
-is the hindsight this protocol refuses, so the geometry joins the encoding as a training-only
-choice: two further arms let the inner loop pick both, and those run at the confirmation seed.
-There the fixed scale moves the selected arms by $-0.034$ to $+0.021$ across the four cohorts that
-carry them, two descriptors each, with a single move outside the band ($-0.034$ on \textsc{Zhu}'s
-LPQ). The exception is the \emph{full} \textsc{ParkinsonHW} release, where the LPQ arm gains
-$+0.086$: that is the release whose two-number floor reaches $0.973$, and it is not reported here
-for that reason. We therefore render at the canvas-fitted geometry throughout --- a choice no
-reported number depends on, which is a narrower claim than absolute size carrying nothing.
+the $0.03$ rule, with the direction belonging to the cohort rather than to the geometry and two
+contrasts surviving Holm (\cref{sec:geometry-appendix}). Choosing a geometry per cohort on that
+evidence is the hindsight this protocol refuses, so the geometry joins the encoding as a
+training-only choice: two further arms let the inner loop pick both, and those run at the
+confirmation seed. There the fixed scale moves the selected arms by $-0.034$ to $+0.021$ across the
+four cohorts that carry them, a single move outside the band. We therefore render at the
+canvas-fitted geometry throughout --- a choice no reported number depends on, which is a narrower
+claim than absolute size carrying nothing.
 
 \paragraph{The positive control behaves as the rule predicts.} \textsc{SVC2004} is the limiting
 case: a skilled forger copies the shape on purpose, so the shape is uninformative by construction.
@@ -464,15 +466,20 @@ separately as an upper bound rather than as a floor.
 minimap gains where the produced figure is imposed by the task and the label lives in the execution
 ($+0.168$ and $+0.252$, or $+0.086$ and $+0.109$ within the descriptor that carries them), and gains
 nothing where the produced shape itself carries the label ($+0.010$, $+0.002$, $+0.015$; $+0.010$,
-$+0.002$ and $+0.008$ under LPQ). Both parentheses give the LPQ column of \cref{tab:within}, which
-is the descriptor in which an encoding gain exists at all. The ordering is the same under either
-column, which is why the rule is stated from the pattern rather than from the size of any one
-gain.
+$+0.002$ and $+0.008$ under LPQ). The within-descriptor figures in both parentheses are the LPQ
+column of \cref{tab:within}, which is the descriptor in which an encoding gain exists at all. The
+ordering is the same under either column, which is why the rule is stated from the pattern rather
+than from the size of any one gain. It also survives redrawing the splits: over twenty fresh master
+seeds per cohort, the sixty draws of the three nulls reach at most $+0.052$ and the forty draws of
+the two gains fall no lower than $+0.068$, so the two groups do not overlap once in a hundred
+redraws.
 \textsc{PaHaW} sits in the second group because seven of its eight
 tasks are writing, although the first is a spiral; its null is also level with its floor, so it
 weighs little either way. \textsc{DiaGraMo}, whose fourteen task slots mix the two regimes, falls
 between the groups at $+0.050$, which is where a mixture should fall --- but its within-descriptor
-margin under LPQ is $-0.021$, which puts it with the nulls rather than between. The intermediate
+margin under LPQ is $-0.021$, which puts it with the nulls rather than between. Fresh splits
+agree: its headline margin centres at $+0.037$ over twenty seeds, seven of the twenty inside the
+null band outright. The intermediate
 position is therefore an artefact of the baseline, and the cohort that was supposed to interpolate
 between the
 two regimes does not. The signature cohort extends the rule to a non-clinical
@@ -613,6 +620,15 @@ what a score means.
 \section{Limitations}
 \label{sec:limitations}
 
+\paragraph{The noise band was inherited, not measured.} The $\pm 0.03$ we read the nulls against
+came from an earlier study on one of these cohorts. We measured it afterwards --- the confirmation
+design re-run on twenty fresh master seeds per cohort, the arm held fixed so that no seed could
+re-select it (\cref{sec:splitnoise-appendix}) --- and it is not one number: half the central
+$90\%$ runs from $0.002$ on \textsc{Character Trajectories} to $0.056$ on \textsc{ParkinsonHW},
+tracking the size of the smaller class rather than of the cohort. It is too narrow on the two
+cohorts whose margins clear it several times over, and conservative on the rest, where we keep
+reading against $\pm 0.03$ rather than tighten a rule once we can see which way that helps.
+
 \paragraph{Cohort sizes.} Four of the seven cohorts have fewer than $130$ participants, the two
 gains among them at $51$ and $58$. Confidence intervals are correspondingly wide and we report them
 everywhere rather than point estimates alone. Nothing here is a sample size from which a clinical
@@ -696,6 +712,62 @@ recorded channels, the unit counts and the class split for all seven, and marks 
 sub-cohort restriction that \cref{sec:floor} motivates.
 
 \input{tables/cohorts}
+
+\section{The geometry sweep}
+\label{sec:geometry-appendix}
+
+\cref{sec:results} states the contrast between the canvas-fitted geometry and the fixed physical
+scale; this is its detail. The screening step renders every available encoding under both, and the
+direction is a property of the cohort: eight of \textsc{Drot\'ar--Dobe\v{s}}'s nine encodings lose
+under the fixed scale and four of \textsc{ParkinsonHW}'s five gain. Two of the $37$ paired
+contrasts survive Holm within the declared family --- $-0.080$ on \textsc{Drot\'ar--Dobe\v{s}}'s
+altitude channel and $+0.010$ on \textsc{Character Trajectories}' bare trace, the second well
+inside the $0.03$ rule --- and one of the two is a loss, which is what makes a per-cohort choice of
+geometry hindsight rather than tuning. Addendum~B of the protocol folded the geometry into the
+training-only choice on that reading, before the confirmation arms were run.
+
+At the confirmation seed the single move outside the band is $-0.034$ on \textsc{Zhu}'s LPQ arm.
+The exception is the \emph{full} \textsc{ParkinsonHW} release, where the LPQ arm gains $+0.086$
+under the fixed scale: that is the release whose two-number floor reaches $0.973$, and
+\cref{sec:floor} is why it is not an endpoint this paper reports.
+
+\section{Split noise, measured}
+\label{sec:splitnoise-appendix}
+
+\input{tables/splitnoise}
+
+The $\pm 0.03$ band of \cref{sec:protocol} was carried over from an earlier study on one of these
+cohorts, where it was an observation rather than a measurement. \cref{tab:splitnoise} measures it:
+the confirmation design re-run on twenty consecutive master seeds, fixed before any of them ran,
+with the feature archives reused so that only the fold assignment varies and the minimap arm held
+at the one each cohort's confirmation reported. One hundred and forty runs, no failures. The rule
+for reading the result was fixed in the same place, before the seeds ran: reported numbers are
+never replaced by a seed statistic, a measured spread wider than the band restates the band for
+that cohort, and a measured spread narrower than it leaves the band alone.
+
+\paragraph{What it changes.} On \textsc{Drot\'ar--Dobe\v{s}} the drawn split gave the lowest margin
+of all twenty-one draws: $+0.010$ against a seed distribution centred on $+0.032$, with every one
+of the twenty above it. Both halves moved the same way --- that split put the bare trace $0.008$
+above its own seed mean and the minimap arm $0.013$ below its --- so the cohort sits at the band's
+edge rather than in its middle, and the bound we quote on the nulls is a bound on the splits we
+drew. \textsc{Character Trajectories} also falls outside its interval, by $0.001$: with $853$ units
+the spread is $0.002$ wide and almost any difference falls outside it, which is why the absolute
+gap is printed beside the fact.
+
+\paragraph{What it does not change.} Taking each draw as its own number, the sixty draws of the
+three nulls reach at most $+0.052$ and the forty draws of the two gains fall no lower than
+$+0.068$: a hundred redraws, and the two groups never overlap. \textsc{DiaGraMo}, which
+\cref{sec:when} reads with the nulls on the strength of its within-descriptor margin, centres at
+$+0.037$ with seven of twenty draws inside the band outright.
+
+\paragraph{What fixing the arm is worth.} Re-picking the better of the two selected arms per seed,
+instead of holding it at the reported one, inflates the mean margin by $+0.028$ on \textsc{PaHaW}
+--- nearly the whole band --- and by under $+0.001$ on every other cohort, where the fixed arm wins
+at all twenty seeds. \textsc{PaHaW} is also the one cohort whose best arm is decided by the split:
+the backbone arm outscores the LPQ one at $17$ of the $20$ fresh seeds, while the drawn split is
+one of the three where LPQ wins. The margin is a null inside the measured band under either arm
+($+0.002$ under LPQ, $-0.004$ under the backbone), so no conclusion turns on it, but the arm label
+should not be read as a property of the cohort.
 
 \section{SVC2004, every encoding}
 \label{sec:signature-appendix}
