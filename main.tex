@@ -84,8 +84,8 @@ We run one pipeline, unchanged, across seven handwriting cohorts: five clinical 
 non-clinical, from a stylus on a graphics tablet to a bare finger on a phone screen. The encoding
 gains $+0.09$ to $+0.11$ macro F1 over the bare trace in the two cohorts where the task dictates
 the figure and only the execution differs --- with $51$ and $58$ participants, only the larger of
-the two separating from zero --- and nothing ($\left|\Delta\right| \leq 0.011$) in the
-three where the produced shape carries the label in all or most tasks. The one cohort built to hold
+the two separating from zero --- and nothing (at most $+0.010$) in the three
+where the produced shape carries the label in all or most tasks. The one cohort built to hold
 both regimes in quantity sits with those three ($-0.02$) rather than between the groups, where its
 reported margin of $+0.05$ would put it. Those gains are measured against the bare trace
 under the \emph{same} descriptor, and that distinction accounts for most of what a reported margin
@@ -212,7 +212,9 @@ ends are drawn.
 preserving aspect ratio, and drawn as $4$~px line segments with $3\times$ supersampling followed by
 Lanczos downsampling. We also report a second geometry in which the scale is fixed per task in
 device units rather than fitted per recording, so that absolute size is preserved across
-participants.
+participants. Its reference extent per task is taken over every recording of that task without
+labels, which makes that arm transductive; all cohort numbers reported here come from the
+canvas-fitted geometry.
 
 \paragraph{Colour.} For a chosen signal $s$ and segment $i$, the value is the mean of its endpoints,
 $\bar{s}_i = (s_i + s_{i+1})/2$, normalised \emph{within the recording} by its own $5$th and $95$th
@@ -291,6 +293,18 @@ of $7$~ms, and none sets the clock. The second feature is independent of the wri
 construction. The first is only approximately so --- a digitiser can drop samples under fast
 motion --- which is one reason to keep the probe to features whose dependence on behaviour is this
 weak, and to report wider probes separately.
+
+Either input can be a constant in a given release, and saying which is part of reading the floor.
+The median interval takes a single value in five of the six cohorts here, and two values --- $7$
+and $9$~ms --- only in \textsc{ParkinsonHW}, where that split is the artefact of
+\cref{sec:results}: removing the recordings it marks leaves $96$ of the remaining $98$ at one
+value, so even there the reported floor rests mostly on the clock. The clock origin is a constant
+$0$ in \textsc{Zhu}, \textsc{DiaGraMo} and \textsc{Character Trajectories}, whose releases are
+distributed with zero-based timestamps. Where
+both are constant the floor is at chance by construction, and the cohort is clean of these two
+artefacts by inspection of two columns --- a stronger statement than a classifier at chance, not a
+weaker one. Where one varies the floor is effectively a one-feature probe: the $0.929$ reported
+below on \textsc{Drot\'ar--Dobe\v{s}} is the session clock alone.
 
 The floor is not chance. Chance is a property of the label distribution; the floor is a property of
 the dataset as assembled, and it is the level below which a score is uninformative about the
@@ -380,9 +394,9 @@ most of $\Delta$ measures.
 
 \paragraph{Where the shape carries the label, the encoding does nothing.} On
 \textsc{Drot\'ar--Dobe\v{s}} the margin is $+0.010$, on \textsc{PaHaW} $+0.002$, and on
-\textsc{Character Trajectories} $+0.015$ --- all inside the $\pm 0.03$ band we declared as split
-noise. Only the character null was registered in advance as a directional hypothesis; the other
-two were not. The character cohort is the sharpest of
+\textsc{Character Trajectories} $+0.015$, or $+0.001$ under its own descriptor --- all inside the
+$\pm 0.03$ band we declared as split noise. Only the character null was registered in advance as
+a directional hypothesis; the other two were not. The character cohort is the sharpest of
 the three because every arm is above $0.98$: a reader identifies a character from ink alone, so
 there is nothing for dynamics to add. We restored headroom there without choosing a task after
 seeing a metric, by running the canonical $20$-class problem over all $2{,}858$ recordings instead
@@ -390,6 +404,16 @@ of the three declared pairs (Addendum~A of its protocol). The static trace reach
 best minimap $0.956$: a margin of $+0.012$, positive in $23$ of the $25$ outer folds (Wilcoxon
 $p = 3 \times 10^{-7}$) and an order of magnitude below the Parkinson cohorts. A real effect, and a
 negligible one.
+
+\paragraph{Fixed physical scale is a null.} Preserving absolute size instead of fitting each
+recording to the canvas moves the selected arms by $-0.034$ to $+0.021$ across the four cohorts
+that ran both geometries, two descriptors each: \textsc{Zhu}, \textsc{DiaGraMo},
+\textsc{Drot\'ar--Dobe\v{s}} and \textsc{Character Trajectories}. There is no consistent direction,
+and one move only --- $-0.034$ on \textsc{Zhu}'s LPQ arm --- falls outside the $\pm 0.03$ band. The
+one place the geometry matters is the \emph{full} \textsc{ParkinsonHW} release, where the LPQ arm
+gains $+0.086$: that is the release whose two-number floor reaches $0.973$, and it is not reported
+here for that reason. We therefore report the canvas-fitted geometry throughout and read the
+physical scale as a null on these cohorts.
 
 \paragraph{The positive control behaves as the rule predicts.} \textsc{SVC2004} is the limiting
 case: a skilled forger copies the shape on purpose, so the shape is uninformative by construction.
@@ -419,9 +443,10 @@ and widening it slightly changes the picture twice. Adding sample count, duratio
 standard deviation of the contact interval --- six acquisition descriptors, none of them a property
 of the writing ---
 reaches $0.784$ on \textsc{DiaGraMo}, above every image arm and above the kinematic attributes
-($0.716$), and $1.000$ on \textsc{Character Trajectories}, where the narrow floor is exactly
-$0.501$. The character case is instructive rather than alarming: duration and sample count encode
-how long a character takes to write, which legitimately identifies it. That is the reason we keep
+($0.716$), and $1.000$ on \textsc{Character Trajectories}, where both narrow features are
+constant and the floor is therefore at chance ($0.501$). The character case is instructive rather
+than alarming: duration and sample count encode how long a character takes to write, which
+legitimately identifies it. That is the reason we keep
 the floor narrow enough that no behaviour of the writer can move it, and report the six-feature arm
 separately as an upper bound rather than as a floor.
 
@@ -507,7 +532,7 @@ descriptor the method was defined with --- sits at or below the static trace in 
 \textsc{DiaGraMo} task set ($-0.021$ on all $14$, $-0.018$ on graphomotor, $-0.012$ on writing).
 Against a static trace described by the same backbone, an arm the pipeline did not have until we
 added it, the encoding adds nothing in this cohort in any task set either: $0.726$ against $0.719$
-on the writing slots, $0.672$ against $0.660$ on graphomotor, $0.714$ against $0.708$ on all $14$,
+on the writing slots, $0.671$ against $0.660$ on graphomotor, $0.714$ against $0.708$ on all $14$,
 every contrast a null. The $+0.069$ margin is the difference between two descriptors over the same
 images rather than between two encodings under one, and within the descriptor there is no margin for
 a control to remove. The controls behave accordingly: on the writing slots they cost $+0.020$ and
@@ -518,7 +543,9 @@ as the addendum said in advance it could only be.
 
 Second, \cref{tab:diagramo} puts the acquisition arms beside the image arms, and the split falls
 exactly where the hypothesis broke. The narrow floor is at chance in both halves ($0.432$ and
-$0.424$), so no clock artefact is involved. But six descriptors of the recording process --- sample
+$0.424$), as it has to be: this release carries zero-based timestamps and one sampling interval, so
+the narrow probe has nothing to read. What rules out a clock artefact here is those two constant
+columns, not those two scores. But six descriptors of the recording process --- sample
 count, duration and four timing statistics, none of them describing the ink --- reach
 $\mathbf{0.846}$ on
 the writing slots and only $0.593$ on the graphomotor slots. On the half where the registered
@@ -584,7 +611,9 @@ screening for disease.
 
 \paragraph{The floor is a lower bound on leakage, not an audit.} Two features is a deliberately
 small probe. A cohort whose floor is at chance is not thereby clean; it is only clean of the two
-artefacts we measured.
+artefacts we measured. In three of the six cohorts here both features are constants, so the probe
+has no variation to read at all: its score there is not a measurement, and what establishes the
+absence of these two artefacts is the inspection of the two columns.
 
 \paragraph{Character Trajectories is a reconstruction.} Its released signals are differentiated,
 smoothed and temporally aligned by the original authors, so it is reported as a directional control
