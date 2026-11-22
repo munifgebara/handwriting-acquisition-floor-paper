@@ -223,7 +223,8 @@ percentiles,
 and mapped affinely to a channel range $[30, 220]$. Speed is $\log(1+v)$ before normalisation;
 azimuth is centred circularly before normalisation. Three signals can be assigned to the three
 channels at once, giving the nine encodings we evaluate: the bare trace, four single-signal
-minimaps (\textbf{S}peed, \textbf{P}ressure, \textbf{A}ltitude, a\textbf{Z}imuth) and four triples.
+minimaps (\textbf{S}peed, \textbf{P}ressure, \textbf{A}ltitude, a\textbf{Z}imuth) and four
+triples (\cref{fig:examples}).
 
 \begin{figure}[t]
 \begin{center}
@@ -244,11 +245,11 @@ label, so nothing about the class distribution can enter the image; and the mapp
 occurred, which is what \cref{sec:when} tests directly.
 
 \paragraph{Descriptor and model.} Unless stated otherwise, images are described by Local Phase
-Quantisation \citep{ojansivu2008lpq} on each channel ($64 \times 64$, $5\times 5$ window, $256$
-bins per channel, $768$ dimensions, square-root transformed) and classified by a support vector
-machine. A frozen ImageNet ResNet18 \citep{he2016resnet} with an $\ell_2$-regularised logistic head
-is the second descriptor over the identical images, which separates the encoding's contribution from
-the descriptor's.
+Quantisation (LPQ) \citep{ojansivu2008lpq} on each channel ($64 \times 64$, $5\times 5$ window,
+$256$ bins per channel, $768$ dimensions, square-root transformed) and classified by a support
+vector machine. A frozen ImageNet ResNet18 \citep{he2016resnet} with an $\ell_2$-regularised
+logistic head is the second descriptor over the identical images, which separates the encoding's
+contribution from the descriptor's.
 
 \section{Evaluation protocol}
 \label{sec:protocol}
@@ -324,13 +325,13 @@ figure. \textsc{Zhu} is the extreme case of instrument change: a bare finger on 
 with no pressure and no angles, so the only minimap available is speed.
 
 \paragraph{Shape chosen by the writer.} In \textsc{Drot\'ar--Dobe\v{s}}
-\citep{drotar2020dysgraphia} and in the writing tasks of \textsc{DiaGraMo}
+\citep{drotar2020dysgraphia} and in the dictation and copy tasks of \textsc{DiaGraMo}
 \citep{zvoncakova2026diagramo}, children write text; the produced shape varies with what was
 written.
 
 \paragraph{Both, under one setup.} \textsc{DiaGraMo} is the pivot of the study: the same children,
 the same tablet and the same session produce ten graphomotor tasks whose target figure is imposed
-and four writing tasks whose shape is not, which lets the rule of \cref{sec:when} be tested without
+and four whose shape is not, which lets the rule of \cref{sec:when} be tested without
 changing anything else. It is the only cohort here that permits that test, and the one in which the
 rule fails. Its own group has analysed this material with
 direction-based fractional-order derivative features \citep{gavenciak2025fractional}; we cite that
@@ -578,7 +579,7 @@ LPQ, of which only the second separates from zero, and nothing above $+0.014$ un
 backbone. The controls put that gain where the encoding puts it, and a channel carrying no
 information does not reproduce it. The one experiment that holds cohort, device and session fixed
 did not confirm the rule, on a half where six acquisition descriptors predict the label better than
-any image arm we ran. That is also why that half could not have tested it. If one result here
+any image arm we ran. That is also why the half could not have tested it. If one result here
 outlives the rest, we would
 prefer it to be the floor: two features, no handwriting in them, and on two public benchmarks a
 score that nothing in this paper beats. Reporting a margin over it costs a few lines and changes
@@ -622,7 +623,7 @@ backbone reads the label off their bare traces at $0.893$ and $0.911$, so the sh
 uninformative are uninformative \emph{to LPQ}. Either question needs a third descriptor, and we
 state both because our own data raise them. The spatial controls inherit the limitation: they are
 LPQ's everywhere and the backbone's on \textsc{DiaGraMo} only, where that arm has no gain and they
-have little to destroy. That is why \cref{sec:when} reads the DiaGraMo nulls as weak evidence,
+have little to destroy. \cref{sec:when} therefore reads the DiaGraMo nulls as weak evidence,
 not as demonstrations.
 
 \paragraph{SVC2004 is a single split.} It is evaluated writer-independently on one held-out
@@ -670,9 +671,14 @@ sub-cohort restriction that \cref{sec:floor} motivates.
 
 \input{tables/cohorts}
 
-\paragraph{DiaGraMo's fourteen task slots.} Ten impose the target figure (spirals, loops, a saw, a
-rainbow) and four do not (dictation, free recall, copy). The contrast of \cref{sec:when} is between
-those two sets.
+\paragraph{DiaGraMo's fourteen task slots.} Ten impose the target figure --- three spirals, five
+loop tasks, a saw and a rainbow --- and the cohort's protocol groups them as \texttt{graphomotor}.
+The other four leave the produced shape to the child: two Rey-figure tasks, recognition and recall,
+then dictation and copy. That set the protocol calls \texttt{writing\_drawing}, and the body
+shortens it to the writing slots, which is the looser name: two of the four are Rey-figure tasks
+rather than text, and only dictation and copy are the multi-line writing whose length
+\cref{sec:when} reads in the six-descriptor score. What all four share, and what the contrast of
+\cref{sec:when} turns on, is that the figure is not imposed.
 
 \paragraph{Which floor input varies, and where.} The median sampling interval of
 \cref{sec:floor} takes a single value in five of the six cohorts with a participant endpoint, and
@@ -782,7 +788,8 @@ encodings is given for completeness; a single split carries no interval, so only
 the static trace at chance, every encoding above it --- is read in the main text.
 
 The static trace's ROC AUC is $0.505$, and the eight signal-carrying encodings run from $0.528$ for
-speed alone to $0.613$ and $0.653$ for the pressure--altitude--azimuth triple.
+speed alone to $0.613$ and $0.653$ for the pressure--altitude--azimuth triple
+(\cref{tab:signature}).
 
 \input{tables/signature}
 
