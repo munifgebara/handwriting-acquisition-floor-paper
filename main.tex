@@ -82,16 +82,16 @@ It is much less clear \emph{when} it works, or how much of a reported gain is th
 We run one pipeline, unchanged, across seven handwriting cohorts, five clinical and two
 non-clinical. The encoding
 gains $+0.09$ to $+0.11$ macro F1 over the bare trace in the two cohorts where the task dictates
-the figure and only the execution differs --- with $51$ and $58$ participants, only the larger of
-the two separating from zero --- and nothing (at most $+0.010$, though redrawing the
+the figure and only the execution differs; with $51$ and $58$ participants, only the larger of the
+two separates from zero. It gains nothing (at most $+0.010$, though redrawing the
 splits twenty times moves the largest of the three to $+0.032$) in the three
 where the produced shape carries the label in all or most tasks. The one cohort built to hold
-both regimes in quantity sits with those three ($-0.02$) rather than between the groups, where its
+both regimes in quantity sits with those three ($-0.02$), not between the groups, where its
 reported margin of $+0.05$ would put it. Those gains are measured against the bare trace
 under the \emph{same} descriptor, and that distinction accounts for most of what a reported margin
 on this recipe usually contains: compared against a bare trace described by a weaker descriptor,
-the same two cohorts read $+0.17$ and $+0.25$, and under a frozen ImageNet backbone --- which reads
-a bare trace far better --- the encoding is worth at most $+0.014$. A control that displaces the
+the same two cohorts read $+0.17$ and $+0.25$, and under a frozen ImageNet backbone, which reads
+a bare trace far better, the encoding is worth at most $+0.014$. A control that displaces the
 signal along the trace while preserving its distribution returns the score to its bare-trace
 baseline wherever the encoding gains, and a channel containing no information about the writer
 reproduces none of it. The controlled version of the test --- a directional hypothesis registered
@@ -107,8 +107,8 @@ every real arm. The level of a score on such a benchmark is therefore not eviden
 was measured. We argue that the quantity carrying evidence is the margin over this acquisition
 floor, give the procedure that measures it, and report it for every cohort with a participant
 endpoint. That includes the cohort whose registered test failed, where six acquisition
-descriptors predict the label better than any image or kinematic pipeline we ran --- which bounds
-how far that failure can be read as evidence about pen dynamics.
+descriptors predict the label better than any image or kinematic pipeline we ran. That bounds how
+far the failure can be read as evidence about pen dynamics.
 \end{abstract}
 
 \section{Introduction}
@@ -117,10 +117,10 @@ how far that failure can be read as evidence about pen dynamics.
 Converting a time series to an image and classifying the image with a convolutional network is an
 old idea with a steady stream of new instances. In the handwriting literature the specific form is
 appealingly direct: the pen path is already two-dimensional, so it can be drawn as it was written,
-and whatever else the digitiser recorded at each sample --- speed, pressure, azimuth, altitude ---
-can be mapped onto the colour of the stroke at that point. The result preserves \emph{where} a
-dynamic quantity occurred along the trace rather than aggregating it away, which is exactly what a
-vector of summary statistics discards. We call such an image a \emph{pseudodynamic minimap},
+and whatever else the digitiser recorded at each sample (speed, pressure, azimuth, altitude) can
+be mapped onto the colour of the stroke at that point. The result preserves \emph{where} a dynamic
+quantity occurred along the trace instead of aggregating it away, exactly what a vector of summary
+statistics discards. We call such an image a \emph{pseudodynamic minimap},
 following the formulation of \citet{prior2027minimaps}, whose single-cohort result this paper sets
 out to transfer and test.
 
@@ -256,7 +256,7 @@ the descriptor's.
 Every cohort is evaluated identically, and every decision --- inclusion rule, task definition,
 contact rule, unit conversion, split design --- was written into a per-cohort protocol document
 \emph{before} any classifier was fitted on that cohort. Where the direction of the study changed
-mid-stream, the protocol carries a dated addendum rather than a rewrite.
+mid-stream, the protocol carries a dated addendum, not a rewrite.
 
 \paragraph{Partitions.} Five repeats of five stratified outer folds, three inner folds for
 selection, nested so that representation and hyperparameters are chosen on training participants
@@ -290,7 +290,7 @@ We instantiate it with two features per recording: the \textbf{median sampling i
 consecutive contact samples}, and $\log_{10}$ of the \textbf{first timestamp}, that is, the origin
 of the session clock. Neither is a symptom: no disease makes a digitiser sample at $9$~ms instead
 of $7$~ms, and none sets the clock. The second is independent of the writer by construction, the
-first only approximately so --- a digitiser can drop samples under fast motion --- which is one
+first only approximately so, since a digitiser can drop samples under fast motion. That is one
 reason to keep the probe to features whose dependence on behaviour is this weak, and to report wider
 probes separately.
 
@@ -298,7 +298,7 @@ Either input can be a constant in a given release, and saying which is part of r
 the median interval varies in one of the six cohorts here and the clock origin in three, and
 \cref{sec:cohorts-appendix} gives both columns. Where
 both are constant the floor is at chance by construction, and the cohort is clean of these two
-artefacts by inspection of two columns --- a stronger statement than a classifier at chance, not a
+artefacts by inspection of two columns: a stronger statement than a classifier at chance, not a
 weaker one. Where one varies the floor is effectively a one-feature probe: the $0.929$ reported
 below on \textsc{Drot\'ar--Dobe\v{s}} is the session clock alone.
 
@@ -317,7 +317,7 @@ including those where our own results are positive.
 Seven cohorts, chosen to vary the instrument, the population and --- critically --- whether the
 produced shape carries the label.
 
-\paragraph{Shape fixed by the task.} In \textsc{ParkinsonHW} \citep{isenkul2014parkinsonhw} and
+\paragraph{Shape fixed by the task.} In \textsc{ParkinsonHW} \citep{isenkul2013parkinsonhw} and
 \textsc{Zhu} \citep{zhu2025smartphone} participants trace a
 prescribed spiral or wave, so what differs between a patient and a control is execution, not
 figure. \textsc{Zhu} is the extreme case of instrument change: a bare finger on a phone screen,
@@ -325,7 +325,8 @@ with no pressure and no angles, so the only minimap available is speed.
 
 \paragraph{Shape chosen by the writer.} In \textsc{Drot\'ar--Dobe\v{s}}
 \citep{drotar2020dysgraphia} and in the writing tasks of \textsc{DiaGraMo}
-\citep{zvoncakova2026diagramo}, children write text; the produced shape varies with what was written.
+\citep{zvoncakova2026diagramo}, children write text; the produced shape varies with what was
+written.
 
 \paragraph{Both, under one setup.} \textsc{DiaGraMo} is the pivot of the study: the same children,
 the same tablet and the same session produce ten graphomotor tasks whose target figure is imposed
@@ -337,13 +338,14 @@ work to place the cohort, and compare against the pipelines we ran ourselves rat
 its reported numbers.
 
 \paragraph{Non-clinical controls.} \textsc{SVC2004} \citep{yeung2004svc} is signature
-verification: a skilled forger copies the shape deliberately, so only dynamics remain --- the
+verification: a skilled forger copies the shape deliberately, so only dynamics remain, the
 cleanest positive control in this set. \textsc{Character Trajectories}
 \citep{williams2006chartraj} is its mirror image: the label \emph{is} the shape, since a reader
 identifies a character from ink alone.
 
 \paragraph{Reference cohort.} \textsc{PaHaW} \citep{drotar2016pahaw} is the corpus on which the
-encoding was originally reported \citep{prior2027minimaps}, and is included unchanged as a regression control.
+encoding was originally reported \citep{prior2027minimaps}, and is included unchanged as a
+regression control.
 
 \section{Results}
 \label{sec:results}
@@ -367,7 +369,7 @@ Those two numbers are not the size of the encoding effect, and \cref{tab:within}
 compare the best minimap arm, which on these cohorts is the frozen backbone, against a static trace
 described by LPQ: the comparison changes the painted channel \emph{and} the descriptor at once.
 Against the bare trace under its own descriptor the encoding is worth $+0.086$ and $+0.109$ under
-LPQ --- which is also where the controls of \cref{sec:when} locate it --- and $+0.014$ and $-0.014$
+LPQ (which is also where the controls of \cref{sec:when} locate it) and $+0.014$ and $-0.014$
 under the backbone. Of those two LPQ margins only \textsc{Zhu}'s separates from zero (CI $+0.036$ to
 $+0.189$, Holm $p = 0.018$); on \textsc{ParkinsonHW}, with $51$ participants, the interval is
 $-0.002$ to $+0.176$ (Holm $p = 0.26$). The rest is the descriptor, and it separates from zero on
@@ -381,8 +383,8 @@ runs from $-0.015$ on \textsc{PaHaW}, the cohort the encoding was first reported
 $+0.265$ on the two that carry the headline gains. The backbone's advantage on a bare trace is
 largest exactly where $\Delta$ is largest, which is
 the uncomfortable reading of the table: what those two cohorts have and the others do not is a
-static trace that suits ImageNet features, and it is that, rather than the painted channel, that
-most of $\Delta$ measures.
+static trace that suits ImageNet features, and most of $\Delta$ measures that, not the painted
+channel.
 
 \paragraph{Where the shape carries the label, the encoding does nothing.} The margins are
 $+0.010$ on \textsc{Drot\'ar--Dobe\v{s}}, $+0.002$ on \textsc{PaHaW} and $+0.015$ on
@@ -407,14 +409,14 @@ this protocol refuses, so the geometry joins the encoding as a training-only cho
 inner loop in two further arms at the confirmation seed. There the fixed scale moves the selected
 arms by $-0.034$ to $+0.021$ across the
 four cohorts that carry them, a single move outside the band. We therefore render at the
-canvas-fitted geometry throughout --- a choice no reported number depends on, which is a narrower
+canvas-fitted geometry throughout. No reported number depends on that choice, which is a narrower
 claim than absolute size carrying nothing.
 
 \paragraph{The positive control behaves as the rule predicts.} \textsc{SVC2004} is the limiting
 case: a skilled forger copies the shape on purpose, so the shape is uninformative by construction.
 The static trace is at chance ($0.491$ macro F1) and all eight encodings carrying a signal score
 above it, up to $0.653$ (\cref{sec:signature-appendix}). It has neither a participant endpoint nor a
-floor --- a forger and a genuine signer are not two groups of people --- so it is evidence about the
+floor (a forger and a genuine signer are not two groups of people), so it is evidence about the
 rule, not about clinical performance.
 
 \paragraph{On two cohorts the floor swallows the result.} On \textsc{Drot\'ar--Dobe\v{s}} two
@@ -427,7 +429,7 @@ indistinguishable.
 \texttt{hw\_dataset} release the two features reach $0.973$, because the digitiser's sampling period
 separates those patients from everything else; the sub-cohort that remains once they are removed
 ($36$ patients and $15$ controls) is the one reported here, and on it the minimap keeps $+0.259$
-over the floor. The artefact therefore does not explain that cohort's gain --- but without measuring
+over the floor. The artefact therefore does not explain that cohort's gain, but without measuring
 it we could not have known, and a result on the whole release would be computed partly on recordings
 that two numbers separate at $0.973$.
 
@@ -438,7 +440,7 @@ of them a property of the writing --- changes the picture twice: it reaches $0.7
 on \textsc{Character Trajectories}, whose two narrow features are both constant and whose floor is
 therefore at chance. Duration and sample count encode how long a character takes to write, which
 legitimately identifies it, so we keep the floor narrow enough that no behaviour of the writer can
-move it and report the six-feature arm as an upper bound rather than as a floor.
+move it and report the six-feature arm as an upper bound, not a floor.
 
 \section{When the encoding helps}
 \label{sec:when}
@@ -454,9 +456,9 @@ hundred times, the two groups never once overlapping (\cref{sec:splitnoise-appen
 \textsc{PaHaW} sits in the second group because seven of its eight
 tasks are writing, although the first is a spiral; its null is also level with its floor, so it
 weighs little either way. \textsc{DiaGraMo}, whose fourteen task slots mix the two regimes, falls
-between the groups at $+0.050$, which is where a mixture should fall --- but its within-descriptor
-margin under LPQ is $-0.021$, which puts it with the nulls rather than between, and fresh splits
-agree (\cref{sec:splitnoise-appendix}). Its intermediate position is therefore an artefact of the
+between the groups at $+0.050$, where a mixture should fall. But its within-descriptor margin
+under LPQ is $-0.021$, which puts it with the nulls instead, and fresh splits agree
+(\cref{sec:splitnoise-appendix}). Its intermediate position is therefore an artefact of the
 baseline, and the cohort built to interpolate between the two regimes does not. The signature cohort
 extends the rule to a non-clinical label and the character cohort anchors its null end: a regularity
 over seven datasets, stronger than the single-cohort evidence this recipe is usually reported with
@@ -471,7 +473,7 @@ destroy only the correspondence between position along the stroke and signal val
 from the same run, so each row reads against its own static baseline. Where there is a gain, both
 controls return the score to that baseline, on \textsc{ParkinsonHW} from a $+0.098$ margin and on
 \textsc{Zhu} from $+0.067$; where there is none there is nothing to remove, and the controls move
-the score by less than the noise band in either direction --- on \textsc{DiaGraMo} the shift is
+the score by less than the noise band in either direction: on \textsc{DiaGraMo} the shift is
 nominally \emph{better} than the authentic images. So the LPQ gain,
 where it exists, comes from \emph{where} along the trace a value occurred and not from the
 distribution of values, which is the only thing a minimap encodes that a summary vector does not.
@@ -515,11 +517,11 @@ it without changing anything else, and we have not re-worded the rule to accommo
 \paragraph{What the failure is, and what it is not.} Two measurements bound how much the failure
 can be read as evidence about pen dynamics, and both point the same way.
 
-First, the entire margin on the writing slots comes from the frozen ResNet18 arm. The LPQ arm --- the
-descriptor the method was defined with --- sits at or below the static trace in every
+First, the entire margin on the writing slots comes from the frozen ResNet18 arm. The LPQ arm, the
+descriptor the method was defined with, sits at or below the static trace in every
 \textsc{DiaGraMo} task set ($-0.021$ on all $14$, $-0.018$ on graphomotor, $-0.012$ on writing), and
-against a static trace described by the same backbone --- an arm the pipeline did not have until we
-added it --- the encoding adds nothing in any task set either, every contrast a null
+against a static trace described by the same backbone (an arm the pipeline did not have until we
+added it), the encoding adds nothing in any task set either, every contrast a null
 (\cref{sec:controls-appendix}). The $+0.069$ margin is the difference between two descriptors over
 the same images rather than between two encodings under one, and within the descriptor there is no
 margin for a control to remove. The controls behave accordingly: on the writing slots they cost
@@ -542,20 +544,20 @@ where the rule predicted a gain, the same descriptors are below the static trace
 That is the reading we find most likely: multi-line dictation and copy vary enormously in length
 between children, a single spiral does not, and a global CNN descriptor over a canvas-fitted page is
 well placed to read quantity off the ink. We cannot separate that explanation from a genuine dynamic
-effect with the experiments we have, and we do not claim to --- but neither is a margin obtained on
-a subset whose nuisance ceiling is $0.846$ evidence that the rule is wrong. The registered
+effect with the experiments we have, and we do not claim to. But neither is a margin obtained on a
+subset whose nuisance ceiling is $0.846$ evidence that the rule is wrong. The registered
 prediction failed; what replaced it is a measurement of why that subset could not have tested it.
 
 \paragraph{The third hypothesis, and why it decides nothing.} H3 predicted that the spatial
 controls would cost more on the graphomotor slots than on the writing slots. All four costs are
 inside the noise band, every interval across zero and every corrected $p$ at $1.00$
-(\cref{sec:controls-appendix}) --- which we registered in advance would happen, for a stated reason:
-the controls are the LPQ arm's, that arm has no gain on this cohort, and there is nothing positional
-for them to destroy in either half. H3 is reported as uninformative rather than as support.
+(\cref{sec:controls-appendix}). We registered that outcome in advance, for a stated reason: the
+controls are the LPQ arm's, that arm has no gain on this cohort, and there is nothing positional for
+them to destroy in either half. H3 is reported as uninformative, not as support.
 
 \paragraph{What the backbone controls settle.} The spatial controls under the backbone were aimed at
 the ResNet18 margin on \textsc{DiaGraMo}, and the test dissolved its own target: within that
-descriptor there is no margin on that cohort to remove --- and that holds
+descriptor there is no margin on that cohort to remove, and that holds
 everywhere. \cref{tab:within} measures the backbone against its own bare trace on all six cohorts
 with a participant endpoint, and the largest margin anywhere is $+0.014$, where the registered
 prediction had been at least $+0.084$, $+0.126$ and $+0.025$ on the three cohorts it named
@@ -571,12 +573,12 @@ neither confirmed it nor, given the nuisance ceiling above, cleanly refuted it.
 One pipeline across seven cohorts supports a narrow claim, and a narrower one than we set out with:
 painting a per-sample signal along the trace earns its place when the task fixes the figure and the
 label lives in the execution, it earns nothing once the produced shape already carries the label,
-and the whole of that effect lives in one of our two descriptors --- $+0.086$ and $+0.109$ under
+and the whole of that effect lives in one of our two descriptors: $+0.086$ and $+0.109$ under
 LPQ, of which only the second separates from zero, and nothing above $+0.014$ under a frozen
 backbone. The controls put that gain where the encoding puts it, and a channel carrying no
 information does not reproduce it. The one experiment that holds cohort, device and session fixed
 did not confirm the rule, on a half where six acquisition descriptors predict the label better than
-any image arm we ran --- which is also why that half could not have tested it. If one result here
+any image arm we ran. That is also why that half could not have tested it. If one result here
 outlives the rest, we would
 prefer it to be the floor: two features, no handwriting in them, and on two public benchmarks a
 score that nothing in this paper beats. Reporting a margin over it costs a few lines and changes
@@ -590,12 +592,12 @@ came from an earlier study on one of these cohorts. We measured it afterwards
 (\cref{sec:splitnoise-appendix}), and it is not one number: half the central $90\%$ runs from
 $0.002$ on \textsc{Character Trajectories} to $0.056$ on \textsc{ParkinsonHW}, tracking the smaller
 class rather than the cohort. It is too narrow on the two cohorts whose margins clear it several
-times over, and conservative on the rest, where we keep reading against $\pm 0.03$ rather than
-tighten a rule once we can see which way that helps.
+times over, and conservative on the rest, where we keep reading against $\pm 0.03$ instead of
+tightening a rule once we can see which way that helps.
 
 \paragraph{Cohort sizes.} Four of the seven cohorts have fewer than $130$ participants, the two
-gains among them at $51$ and $58$, so confidence intervals are wide and we report them everywhere
-rather than point estimates alone. Nothing here is a sample size from which a clinical claim
+gains among them at $51$ and $58$, so confidence intervals are wide and we report them everywhere,
+not point estimates alone. Nothing here is a sample size from which a clinical claim
 follows; the result is about when an encoding earns its place in a representation, not about
 screening for disease.
 
@@ -620,8 +622,8 @@ backbone reads the label off their bare traces at $0.893$ and $0.911$, so the sh
 uninformative are uninformative \emph{to LPQ}. Either question needs a third descriptor, and we
 state both because our own data raise them. The spatial controls inherit the limitation: they are
 LPQ's everywhere and the backbone's on \textsc{DiaGraMo} only, where that arm has no gain and they
-have little to destroy --- which is why \cref{sec:when} reads the DiaGraMo nulls as weak evidence
-rather than as demonstrations.
+have little to destroy. That is why \cref{sec:when} reads the DiaGraMo nulls as weak evidence,
+not as demonstrations.
 
 \paragraph{SVC2004 is a single split.} It is evaluated writer-independently on one held-out
 partition, without the nested repeats the other cohorts receive and without a floor, so it supports

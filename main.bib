@@ -2,22 +2,30 @@
 %
 % Every field below was read off the publisher's or distributor's own record, not reconstructed
 % from memory. Where a record does not state a field (Zenodo has no volume; PLOS has an article
-% number rather than a page range), the field is omitted rather than invented.
+% number instead of a page range), the field is omitted rather than invented.
 %
-% `prior2027minimaps` is the short paper this work continues: accepted, not yet published. Under
+% Re-checked 2026-11-22, every entry against a registry: doi.org content negotiation (Crossref
+% for the journal and proceedings entries, DataCite for the UCI and Zenodo ones), and PubMed, the
+% UCI dataset API, the Zenodo record API or OpenAlex wherever a registry left a field empty. All
+% 17 resolve, with the author lists, venues, volumes and pages below matching the records. The
+% three fields that did not survive the check are marked at their entries.
+%
+% `prior2027minimaps` is the one entry no registry can confirm, because it is the short paper this
+% work continues: accepted, not yet published, and cited as "To appear". Under
 % double-blind review it is cited in the third person with its real author list, which ICML
 % permits for prior work and which the two citing passages were already written for. The author
 % list and title were read off the camera-ready in `reference/VISAPP2027-camera-ready.pdf`.
 
+% No issue number: both Crossref (no journal-issue) and PubMed (blank issue, "2016 Feb;67:39-46")
+% give volume 67 alone, so the `number = {1}' this entry used to carry was ours, not the journal's.
 @article{drotar2016pahaw,
   title   = {Evaluation of handwriting kinematics and pressure for differential
-             diagnosis of Parkinson's disease},
+             diagnosis of {P}arkinson's disease},
   author  = {Drot{\'a}r, Peter and Mekyska, Ji{\v{r}}{\'\i} and Rektorov{\'a}, Irena
              and Masarov{\'a}, Lucia and Sm{\'e}kal, Zden{\v{e}}k
              and Faundez-Zanuy, Marcos},
   journal = {Artificial Intelligence in Medicine},
   volume  = {67},
-  number  = {1},
   pages   = {39--46},
   year    = {2016},
   doi     = {10.1016/j.artmed.2016.01.004}
@@ -35,7 +43,7 @@
 }
 
 @article{zhu2025smartphone,
-  title   = {Finger drawing on smartphone screens enables early Parkinson's disease
+  title   = {Finger drawing on smartphone screens enables early {P}arkinson's disease
              detection through hybrid {1D-CNN} and {BiGRU} deep learning architecture},
   author  = {Zhu, Zhaohui and Wu, E and Leng, Pengfei and Sun, Jiajun
              and Ma, Mingming and Pan, Zhigeng},
@@ -47,25 +55,34 @@
   doi     = {10.1371/journal.pone.0327733}
 }
 
-@misc{isenkul2014parkinsonhw,
+% Year 2013, not 2014: the UCI dataset API gives year_of_dataset_creation 2013 and DataCite gives
+% publicationYear 2013 with an Issued date of 2013. The 2014 we had is the companion paper's year
+% (Isenkul, Sakar and Kursun at ICBH 2014), and this entry cites the dataset, not that paper. The
+% key was renamed with the year so the two cannot drift apart again.
+@misc{isenkul2013parkinsonhw,
   title     = {Parkinson Disease Spiral Drawings Using Digitized Graphics Tablet},
   author    = {Isenkul, M. E. and Sakar, B. E. and Kursun, O.},
-  year      = {2014},
+  year      = {2013},
   publisher = {UCI Machine Learning Repository},
   doi       = {10.24432/C5Q01S}
 }
 
+% The UCI dataset API and DataCite both give the creator as "Ben Williams", so the middle initial
+% we had is dropped; the dataset's own source publication credits Williams, B. H. The CC BY 4.0 in
+% the note is not in either machine record but is stated on the UCI dataset page, so it stays.
 @misc{williams2006chartraj,
   title     = {Character Trajectories},
-  author    = {Williams, Ben H.},
+  author    = {Williams, Ben},
   year      = {2006},
   publisher = {UCI Machine Learning Repository},
   doi       = {10.24432/C58G7V},
   note      = {CC BY 4.0}
 }
 
+% "Version 2" in the note confirmed: concept 10.5281/zenodo.18299326 holds two versions, and this
+% record (21236910, 2026-07-07) is the later one. Zenodo stores no version string of its own here.
 @misc{zvoncakova2026diagramo,
-  title     = {Multimodal Czech online handwriting and cognitive data from children
+  title     = {Multimodal {C}zech online handwriting and cognitive data from children
                with and without handwriting disabilities},
   author    = {Zvon{\v{c}}{\'a}kov{\'a}, Katar{\'\i}na and Mekyska, Ji{\v{r}}{\'\i}
                and Klocek, Adam and Mucha, J{\'a}n and Gal{\'a}{\v{z}}, Zolt{\'a}n},
@@ -99,7 +116,9 @@
   author    = {Yeung, Dit-Yan and Chang, Hong and Xiong, Yimin and George, Susan
                and Kashi, Ramanujan and Matsumoto, Takashi and Rigoll, Gerhard},
   booktitle = {International Conference on Biometric Authentication (ICBA)},
+  pages     = {16--22},
   year      = {2004},
+  doi       = {10.1007/978-3-540-25948-0_3},
   note      = {Distributed at https://cse.hkust.edu.hk/svc2004/}
 }
 
@@ -117,8 +136,9 @@
   doi     = {10.1209/0295-5075/4/9/004}
 }
 
-% Author list and venue read off the University of Haifa research record. The publisher record for
-% the DOI was not reachable, so no DOI field is given rather than a guessed one.
+% Author list and venue were read off the University of Haifa research record when the publisher
+% record would not resolve. On the 2026-11-22 re-check it did: the DOI below is the registered one,
+% and the title, journal, volume, issue, pages and five authors all match what was already here.
 @article{werner2006handwriting,
   title   = {Handwriting process variables discriminating mild {Alzheimer's} disease
              and mild cognitive impairment},
@@ -129,7 +149,8 @@
   volume  = {61},
   number  = {4},
   pages   = {P228--P236},
-  year    = {2006}
+  year    = {2006},
+  doi     = {10.1093/geronb/61.4.P228}
 }
 
 @inproceedings{ojansivu2008lpq,
@@ -137,7 +158,8 @@
   author    = {Ojansivu, Ville and Heikkil{\"a}, Janne},
   booktitle = {International Conference on Image and Signal Processing (ICISP)},
   pages     = {236--243},
-  year      = {2008}
+  year      = {2008},
+  doi       = {10.1007/978-3-540-69905-7_27}
 }
 
 @inproceedings{he2016resnet,
@@ -145,7 +167,8 @@
   author    = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
   booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
   pages     = {770--778},
-  year      = {2016}
+  year      = {2016},
+  doi       = {10.1109/CVPR.2016.90}
 }
 
 @inproceedings{wang2015gaf,
@@ -179,6 +202,9 @@
   doi     = {10.1038/s42256-021-00338-7}
 }
 
+% Not in Crossref. Confirmed through OpenAlex, which gives 1979, Scandinavian Journal of
+% Statistics, volume 6, pages 65-70, and asserts the JSTOR DOI below. `number = {2}' is JSTOR's
+% own issue designation for the article and is kept, but no machine record states it.
 @article{holm1979,
   title   = {A simple sequentially rejective multiple test procedure},
   author  = {Holm, Sture},
@@ -186,7 +212,8 @@
   volume  = {6},
   number  = {2},
   pages   = {65--70},
-  year    = {1979}
+  year    = {1979},
+  doi     = {10.2307/4615733}
 }
 
 % Cited in the third person: \citet in Section 1 and \citep in the "Reference cohort" paragraph
@@ -196,7 +223,7 @@
 % The `note` field is deliberately short, because BibTeX prints it.
 @inproceedings{prior2027minimaps,
   title     = {Pseudodynamic Minimaps: Encoding Pen Dynamics in Handwriting Images
-               for Parkinson's Disease Classification},
+               for {P}arkinson's Disease Classification},
   author    = {{Gebara Jr.}, Munif and S{\'a}nchez, {\'A}ngel
                and {Maldonado e Gomes da Costa}, Yandre
                and Wiese, Igor Scaliante
