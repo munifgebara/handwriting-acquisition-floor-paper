@@ -29,6 +29,25 @@
 \setlength{\parskip}{0.4em}
 \renewcommand{\arraystretch}{1.1}
 
+% The table files are shared with the ICML build, where two columns make table* the right
+% environment. Here the document is one column, and a starred float is page-wide: LaTeX will only
+% put it at the top of a page and defers it hard when it cannot, which is how the cohorts table
+% ended up wedged between two references. Treat table* as an ordinary float, and let it sit where
+% the text does by offering it every position rather than only the top.
+\makeatletter
+\renewenvironment{table*}[1][htbp]{\@float{table}[htbp]}{\end@float}
+\makeatother
+
+% The defaults reserve so much of a page for text that a large table is pushed forward rather than
+% placed. These let a float take most of a page, which is what the wide tables here need.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+
 \title{\bfseries When Does Encoding Dynamics as Colour Help?\\
        Seven Handwriting Cohorts and an Acquisition Floor}
 
@@ -735,10 +754,16 @@ role in the design of the study; in the collection, analyses or interpretation o
 writing of the manuscript; or in the decision to publish the results.
 
 
+% Flush every pending float before the references begin, so that nothing from the body can land
+% among them.
+\clearpage
 \bibliography{main}
 \bibliographystyle{unsrtnat}
 
-
+% And start the appendices on a fresh page. Without this the first appendix begins at the foot of
+% the last reference page, and its table is free to float to the top of that same page --- which
+% is how Table 5 came to sit between references [8] and [9].
+\clearpage
 \appendix
 
 \section{The cohorts in detail}
