@@ -1,32 +1,12 @@
-# Rascunho do artigo (formato ICML)
+# When Does Encoding Dynamics as Colour Help?
 
-`main.tex` no formato do ICML (`icml2026.sty`; a folha de 2027 ainda nao foi publicada).
-Nada aqui calcula metrica: as cinco tabelas e a figura saem de `runs/` pelos scripts do projeto,
-de modo que nenhum numero do texto pode divergir da rodada que o produziu.
+Fonte LaTeX do artigo *"When Does Encoding Dynamics as Colour Help? Seven Handwriting Cohorts and
+an Acquisition Floor"*, no formato do ICML (`icml2026.sty`; a folha de 2027 ainda nao foi
+publicada).
 
-## O que nao esta versionado
-
-- `main.pdf` e os auxiliares do LaTeX — recompilaveis.
-- `figures/` — a figura de exemplos traz tracos de gravacoes que nao sao nossas para
-  redistribuir.
-- `style/` — os arquivos baixados do ICML; os `.sty`/`.bst` em uso estao nesta pasta.
-
-## Reconstruir e compilar
-
-```powershell
-.venv\Scripts\python scripts\x3_paper_tables.py
-.venv\Scripts\python scripts\x6_paper_figure.py
-```
-
-```powershell
-cd paper; pdflatex main; bibtex main; pdflatex main; pdflatex main
-```
-
-A versao identificada, para circular entre os autores, sai do mesmo fonte:
-
-```powershell
-cd paper; pdflatex main-authors; bibtex main-authors; pdflatex main-authors; pdflatex main-authors
-```
+Este repositorio e **privado** e esta sincronizado com o Overleaf, que e onde a prosa se edita a
+varias maos. O estudo que produz os numeros vive noutro lugar: `PDM2`, o repositorio de pesquisa
+(codigo, protocolos por base, rodadas). Aqui so entra o que o LaTeX precisa.
 
 ## As duas compilacoes
 
@@ -35,16 +15,73 @@ cd paper; pdflatex main-authors; bibtex main-authors; pdflatex main-authors; pdf
 agradecimento entra e o rodape diz `Draft of <data> -- not submitted`, sem afirmar nada sobre
 aceite. Sem essa opcao a propria folha do ICML substitui os nomes por "Anonymous Authors" e as
 filiacoes por "Anonymous Institution" -- nenhum nome e composto no PDF anonimo, de modo que nao
-ha duas versoes do texto para manter em sincronia. `main-authors.pdf` nao se submete.
+ha duas versoes do texto para manter em sincronia.
 
-A lista de autores e a ordem foram trazidas do camera-ready do VISAPP 2027; a autoria deste
-estudo ainda precisa ser confirmada, e o agradecimento carrega os dois numeros que aquele artigo
-tambem deixou em aberto (o processo do PDSE e o projeto do Angel). Os tres pontos estao marcados
-no `main.tex` com `[AUTHOR VERIFICATION REQUIRED]`.
+| arquivo | o que e | quando se usa |
+|---|---|---|
+| `main.tex` | build **cego**, sem autores | e este que se submete |
+| `main-authors.tex` | build identificado | para ler e revisar entre nos |
+
+No Overleaf, **defina `main-authors.tex` como documento principal**, para que o PDF que todos veem
+traga os nomes. `main-authors.pdf` nao se submete.
+
+```powershell
+pdflatex main-authors; bibtex main-authors; pdflatex main-authors; pdflatex main-authors
+```
+
+## As tabelas e a figura sao geradas -- nao editar a mao
+
+As sete tabelas em `tables/` e `figures/examples.png` saem de `runs/` no repositorio de pesquisa,
+pelos scripts `x3_paper_tables.py` e `x6_paper_figure.py`. Nada aqui calcula metrica, e e assim de
+proposito: nenhum numero do texto pode divergir da rodada que o produziu.
+
+Cada tabela abre com um aviso de quatro linhas dizendo isso. Vale repetir aqui porque no Overleaf o
+aviso e facil de ignorar: **um numero ajeitado a mao numa tabela e perdido na proxima
+regeneracao**, e ate la deixa de corresponder a rodada. Para mudar um numero, muda-se a rodada ou o
+gerador.
+
+A prosa do `main.tex` e a bibliografia, essas sim, editam-se livremente aqui e no Overleaf.
+
+## Regenerar
+
+Do repositorio de pesquisa, com este repositorio ao lado:
+
+```powershell
+.venv\Scripts\python scripts\x3_paper_tables.py
+.venv\Scripts\python scripts\x6_paper_figure.py
+```
+
+Os geradores escrevem direto aqui. Procuram, nesta ordem: a variavel `PDM2_PAPER_DIR`, a pasta irma
+`handwriting-acquisition-floor-paper`, e por fim um `paper/` dentro do proprio repositorio de
+pesquisa.
+
+## Fluxo com o Overleaf
+
+A sincronizacao e **manual**, nao continua: *Pull from GitHub* traz o que foi regenerado aqui,
+*Push to GitHub* devolve o que foi editado la. Se os dois lados mexerem no mesmo arquivo, a
+reconciliacao e na mao -- na pratica, convem regenerar e dar push **antes** de uma rodada de edicao
+no Overleaf, nao durante.
+
+## O que falta confirmar no texto
+
+A lista de autores e a ordem foram trazidas do camera-ready do VISAPP 2027; a autoria deste estudo
+ainda precisa ser confirmada, e o agradecimento carrega os dois numeros que aquele artigo tambem
+deixou em aberto (o processo do PDSE e o projeto do Angel). Os tres pontos estao marcados no
+`main.tex` com `[AUTHOR VERIFICATION REQUIRED]`.
 
 ## Como o artigo anterior e citado
 
-O short paper do VISAPP 2027 entra em terceira pessoa, com a autoria real, o que o duplo-cego
-do ICML permite para trabalho anterior. As duas passagens que o citam -- a seccao 1 e o
-paragrafo "Reference cohort" da seccao 6 -- ja estavam escritas assim, de modo que nada muda
-no camera-ready. A submissao em si continua anonima.
+O short paper do VISAPP 2027 entra em terceira pessoa, com a autoria real, o que o duplo-cego do
+ICML permite para trabalho anterior. As duas passagens que o citam -- a seccao 1 e o paragrafo
+"Reference cohort" da seccao 6 -- ja estavam escritas assim, de modo que nada muda no camera-ready.
+A submissao em si continua anonima.
+
+## Antes de tornar publico
+
+`figures/examples.png` **esta versionado aqui**, ao contrario do que acontecia quando o artigo
+morava dentro do repositorio de pesquisa: sem ele o documento nao compila no Overleaf. Mas a figura
+traz tracos de gravacoes das bases, que nao sao nossas para redistribuir, e por isso este
+repositorio fica privado. Numa eventual copia publica, a figura sai.
+
+Enquanto o artigo nao estiver submetido, um repositorio publico com este titulo tambem identifica
+os autores, o que importa se o destino tiver revisao cega.

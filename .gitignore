@@ -1,0 +1,15 @@
+# Subprodutos do LaTeX: recompilaveis a partir de main.tex, e o Overleaf gera os seus.
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+main.pdf
+main-authors.pdf
+
+# Nao ignorar figures/: a figura precisa estar aqui para o documento compilar no Overleaf.
+# Ela traz tracos de gravacoes que nao sao nossas para redistribuir, entao este repositorio
+# fica PRIVADO. Ao abrir uma copia publica, a figura sai junto com qualquer material de editora.
