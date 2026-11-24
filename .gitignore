@@ -9,6 +9,7 @@
 *.synctex.gz
 main.pdf
 main-authors.pdf
+main-mdpi.pdf
 
 # Nao ignorar figures/: a figura precisa estar aqui para o documento compilar no Overleaf.
 # Ela traz tracos de gravacoes que nao sao nossas para redistribuir, entao este repositorio

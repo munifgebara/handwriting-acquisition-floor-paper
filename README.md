@@ -8,7 +8,29 @@ Este repositorio e **privado** e esta sincronizado com o Overleaf, que e onde a 
 varias maos. O estudo que produz os numeros vive noutro lugar: `PDM2`, o repositorio de pesquisa
 (codigo, protocolos por base, rodadas). Aqui so entra o que o LaTeX precisa.
 
-## As duas compilacoes
+## Dois destinos, dois documentos
+
+| arquivo | destino | formato |
+|---|---|---|
+| `main.tex` | ICML (conferencia) | folha do ICML, corpo em 8 paginas, duas colunas |
+| `main-mdpi.tex` | **Applied Sciences** (MDPI), Special Issue *Statistics in Data Science* | formato livre, coluna unica, 16 paginas |
+
+Os dois compartilham `tables/`, `figures/` e `main.bib`, e nenhum numero difere entre eles. O que
+muda e a estrutura, que a revista fixa (Introduction, Materials and Methods, Results, Discussion,
+Conclusions), o resumo, que a revista limita a cerca de 200 palavras contra as 498 da versao do
+ICML, e o back matter obrigatorio.
+
+A versao MDPI **nao usa o template da revista**, de proposito: a licenca do template diz que ele
+"cannot be used for posting online on preprint servers or other websites", e este repositorio e
+publico. A revista aceita *free format submission* -- "We do not have strict formatting
+requirements, but all manuscripts must contain the required sections" -- e todas as secoes
+exigidas estao la, na ordem dela. Na revisao, quando pedirem o template, troca-se.
+
+```powershell
+pdflatex main-mdpi; bibtex main-mdpi; pdflatex main-mdpi; pdflatex main-mdpi
+```
+
+## As duas compilacoes do documento do ICML
 
 `main.tex` e o unico fonte. `main-authors.tex` define `\PDMIDENTIFIED` e o le, o que troca
 `\usepackage{icml2026}` por `\usepackage[preprint]{icml2026}`: o bloco de autores aparece, o
