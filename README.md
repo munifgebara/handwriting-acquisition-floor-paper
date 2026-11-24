@@ -86,10 +86,17 @@ no Overleaf, nao durante.
 
 ## O que falta confirmar no texto
 
-A lista de autores e a ordem foram trazidas do camera-ready do VISAPP 2027; a autoria deste estudo
-ainda precisa ser confirmada, e o agradecimento carrega os dois numeros que aquele artigo tambem
-deixou em aberto (o processo do PDSE e o projeto do Angel). Os tres pontos estao marcados no
-`main.tex` com `[AUTHOR VERIFICATION REQUIRED]`.
+Os dois numeros de financiamento **ja estao preenchidos** nos dois documentos, trazidos do
+camera-ready do VISAPP 2027 em 24/11/2026: o processo do PDSE (`88881.266133/2026-01`) e o projeto
+do Angel (`PID2025-169751OB-I00`, Spanish State Research Agency). O que sobra e a **autoria deste
+estudo**, cuja lista e ordem vieram daquele artigo e ainda precisa ser confirmada; esta marcada nos
+dois arquivos com `[AUTHOR VERIFICATION REQUIRED]`.
+
+No `main-mdpi.tex` restam outros quatro marcadores, todos de coisas que so os autores podem
+afirmar: os papeis CRediT, a redacao de etica para analise secundaria de bases publicas, a rota de
+acesso de cada coorte e os links de pre-registro que a revista exige. Ha ainda uma nota junto ao
+financiamento: agencias espanholas costumam exigir formula propria de agradecimento, que pode
+incluir o identificador `MICIU/AEI/10.13039/501100011033` --- vale conferir com a AEI.
 
 ## Como o artigo anterior e citado
 
