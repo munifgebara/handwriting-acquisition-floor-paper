@@ -15,7 +15,14 @@ varias maos. O estudo que produz os numeros vive noutro lugar: `PDM2`, o reposit
 | `main.tex` | ICML (conferencia) | folha do ICML, corpo em 8 paginas, duas colunas |
 | `main-mdpi.tex` | **Applied Sciences** (MDPI), Special Issue *Statistics in Data Science* | formato livre, coluna unica, 16 paginas |
 
-Os dois compartilham `tables/`, `figures/` e `main.bib`, e nenhum numero difere entre eles. O que
+Os dois compartilham `tables/`, `figures/` e `main.bib`, e nenhum numero difere entre eles. Desde
+25/11/2026 ha **uma diferenca de conteudo**, e ela e deliberada: a camada entre coortes (adendo H do
+protocolo --- agregacao por efeitos aleatorios, heterogeneidade, o moderador, a familia de Holm das
+seis, a potencia por coorte e as componentes de variancia) esta so no `main-mdpi.tex`, com as
+tabelas `across.tex` e `pooled.tex`. O corpo do ICML fecha em oito paginas sem folga nenhuma, e
+nao cabe la sem um corte equivalente. O `main.tex` recebeu apenas o numero que mudou: o Holm do Zhu
+passou de 0,018 para 0,031, corrigido na familia das seis coortes. Se o destino do ICML voltar a
+valer, a cirurgia de pagina e o primeiro trabalho. O que
 muda e a estrutura, que a revista fixa (Introduction, Materials and Methods, Results, Discussion,
 Conclusions), o resumo, que a revista limita a cerca de 200 palavras contra as 498 da versao do
 ICML, e o back matter obrigatorio.

@@ -78,18 +78,21 @@
 \noindent
 A recurring recipe turns a sampled trajectory into an image for a vision model: the pen path is
 drawn as ink, and a per-sample signal---speed, pressure, tilt---is painted along it as colour. It
-is cheap and has been reported to work; when it works, and how much of a gain is the encoding, is
-less clear. We apply one pipeline unchanged to seven handwriting cohorts, five clinical and two
+is cheap and reported to work; when it works, and how much of the gain is the encoding, is less
+clear. We apply one pipeline unchanged to seven handwriting cohorts, five clinical and two
 non-clinical, with identical rendering, descriptors, nested cross-validation and statistics, and
 every decision registered before any metric. The encoding gains
 $+0.09$ to $+0.11$ macro F1 over the bare trace where the task fixes the figure and only execution
-differs, and nothing where the produced shape carries the label. Giving each descriptor its
-own baseline shows most of a reported margin is the descriptor, not the encoding: under a frozen
-ImageNet backbone no cohort gains more than $+0.014$. A within-cohort test registered with its
-direction beforehand was not confirmed, and is reported as a failure. Separately, a classifier
-given two numbers containing no handwriting---the median sampling interval and the session clock
-origin---reaches $0.97$ on one public clinical benchmark and $0.93$ on another. The quantity
-carrying evidence is therefore the margin over this acquisition floor, not the score.
+differs, and nothing where the produced shape carries the label. Pooled over the cohorts it does not
+separate from zero, because it is not one effect ($I^2 = 65\,\%$): one task property absorbs nine
+tenths of that heterogeneity, and five of six cohorts could not have detected the pooled effect at
+$80\,\%$ power. Giving each descriptor its own baseline shows most of a reported margin is the
+descriptor, not the encoding: under a frozen ImageNet backbone the cohorts are one effect, and above
+their floors it is $+0.001$. A within-cohort test registered with its direction beforehand was not
+confirmed, and is reported as a failure. Separately, a classifier given two numbers containing no
+handwriting---the sampling interval and the session clock origin---reaches $0.97$ on one public
+clinical benchmark and $0.93$ on another. The quantity carrying evidence is therefore the margin
+over this acquisition floor, not the score.
 \end{abstract}
 
 \noindent\textbf{Keywords:} handwriting; time series to image; benchmark validity; shortcut
@@ -304,9 +307,43 @@ noise, and report no gain that does not reappear on the confirmation seed. That 
 rather than measured; \cref{sec:splitnoise-appendix} measures it on twenty fresh seeds per cohort
 and reports where it is too narrow.
 
-\paragraph{Statistics.} Confidence intervals are $10{,}000$ label-stratified participant bootstrap
-resamples. Paired contrasts use participant-wise swap randomisation. Multiplicity is corrected by
-the Holm procedure \citep{holm1979} within families declared in the protocol.
+\paragraph{Statistics, within a cohort.} Confidence intervals are $10{,}000$ label-stratified
+participant bootstrap resamples. Paired contrasts use participant-wise swap randomisation.
+Multiplicity is corrected by the Holm procedure \citep{holm1979} within families declared in the
+protocol.
+
+\paragraph{Statistics, across cohorts.} Six per-cohort analyses do not analyse the statement that
+spans them, and our claim is such a statement. We therefore treat the six within-descriptor margins
+as one dataset of six estimates, each with its own variance, and estimate three things from it. The
+\textbf{pooled margin} comes from a random-effects model fitted by restricted maximum likelihood,
+with the Hartung--Knapp interval \citep{hartung2001}, fixed in the protocol before the
+run because the method-of-moments estimator is biased downward at six studies
+\citep{viechtbauer2005}; we report $\hat\tau$, $I^2$ \citep{higgins2002} and a prediction interval
+beside it, because a pooled point is a summary only if the effect is one effect. The
+\textbf{moderator} is the binary cohort property our rule names --- whether the task fixes the
+figure --- entered in a meta-regression and tested by relabelling cohorts over all $15$ ways of
+assigning two of the six to the figure-fixed group. That exact test cannot return a $p$ below
+$1/15 = 0.067$, which we state in advance and never call significance: what it reports is whether
+the observed assignment is the most extreme available. The six contrasts are also corrected as
+\textbf{one Holm family}, which is the family this study ran, rather than only inside each cohort.
+Each margin is weighted twice, by its participant bootstrap variance and by the variance of the same
+margin over the twenty fresh seeds of \cref{sec:splitnoise-appendix}, since the first does not see
+split variation and the second does; both weightings are reported.
+
+\paragraph{Power, reported with every null.} For each cohort we report MDE$_{80}$, the margin that
+cohort could have detected at $80\,\%$ power and two-sided $5\,\%$ given its own standard error. A
+null above a cohort's MDE$_{80}$ is an absence of evidence and a null below it is evidence of
+absence; the two are not interchangeable, and without the column a reader cannot tell which one they
+are looking at.
+
+\paragraph{Screening and confirmation are a two-stage design.} The two master seeds form a
+two-stage design whose interim rule was fixed before either stage ran: a representation reaches the
+confirmation stage only if it leads at screening, and no margin is reported as a gain unless it
+reappears on the confirmation seed within the declared band. We claim \emph{no} propagation of
+$\alpha$ between the stages --- they are separate families, and the confirmation intervals are not
+widened for having passed a screen. What a screen can buy is instead measured directly: picking the
+arm on the split it is scored on is worth up to $+0.028$ on one cohort and nothing on five
+(\cref{sec:splitnoise-appendix}), which is the cost this structure exists to avoid.
 
 \paragraph{Spatial controls.} To test whether a gain comes from \emph{where} the signal sits, we
 apply two destructive controls at render time, each preserving every per-stroke marginal exactly:
@@ -392,8 +429,9 @@ described by LPQ: the comparison changes the painted channel \emph{and} the desc
 Against the bare trace under its own descriptor the encoding is worth $+0.086$ and $+0.109$ under
 LPQ (which is also where the controls of \cref{sec:when} locate it) and $+0.014$ and $-0.014$
 under the backbone. Of those two LPQ margins only \textsc{Zhu}'s separates from zero (CI $+0.036$ to
-$+0.189$, Holm $p = 0.018$); on \textsc{ParkinsonHW}, with $51$ participants, the interval is
-$-0.002$ to $+0.176$ (Holm $p = 0.26$). The rest is the descriptor, and it separates from zero on
+$+0.189$, Holm $p = 0.031$ in the six-cohort family of \cref{sec:across}); on
+\textsc{ParkinsonHW}, with $51$ participants, the interval is $-0.002$ to $+0.176$
+(Holm $p = 0.259$). The rest is the descriptor, and it separates from zero on
 both. We keep $\Delta$ in \cref{tab:headline} because it is the quantity every experiment here
 compared, and print $\Delta_w$ beside it because it is the quantity about the encoding; the arms,
 the thresholds and the direction of this test were registered before it ran.
@@ -463,6 +501,77 @@ therefore at chance. Duration and sample count encode how long a character takes
 legitimately identifies it, so we keep the floor narrow enough that no behaviour of the writer can
 move it and report the six-feature arm as an upper bound, not a floor.
 
+\subsection{The six cohorts as one family}
+\label{sec:across}
+
+Everything above is six analyses. The claim is one statement about six cohorts, and this section
+estimates it instead of narrating it. The arms, the thresholds, the moderator's coding and the
+direction of every test below were registered before any of these quantities was computed.
+
+\input{tables/across}
+\input{tables/pooled}
+
+\paragraph{The pooled margin is not the answer, and that is the first result.} Pooled over the six
+cohorts, the encoding is worth $+0.017$ macro F1 with a $95\,\%$ interval of $-0.029$ to $+0.063$
+(\cref{tab:pooled}): it does not separate from zero, under either declared weighting and whether or
+not the two floor-swallowed cohorts are included. Read alone that number would say the method does
+nothing. It does not say that, because the six margins are not one effect: $\hat\tau = 0.031$,
+$I^2 = 65\,\%$, $Q = 14.3$ on five degrees of freedom ($p = 0.014$), and the prediction interval for
+a new cohort runs from $-0.078$ to $+0.113$. Pooling an effect that exists in one regime and not the
+other returns a number describing neither regime. We report it because a reader is entitled to the
+pooled estimate, and we report the heterogeneity beside it because that is what makes the pooled
+estimate uninterpretable.
+
+\paragraph{Under the frozen backbone there is one effect, and it is zero.} The same model on the
+backbone's margins gives $\hat\tau = 0.014$ and $I^2 = 48\,\%$, below the declared threshold, so
+there the six cohorts \emph{are} consistent with a single effect: $-0.008$, interval $-0.033$ to
+$+0.016$. Restricted to the four cohorts whose score clears their floor, the heterogeneity is
+exactly zero and the single effect is $+0.001$ with an interval two thousandths wide. This is the
+statement \cref{sec:results} could previously only make six times: under an ImageNet descriptor,
+painting the dynamics on the trace adds nothing, anywhere, and the cohorts agree on it.
+
+\paragraph{The rule, as a model.} Entering the declared moderator --- whether the task fixes the
+figure --- gives a coefficient of $+0.098$, against a registered threshold of $+0.050$, and leaves
+$\hat\tau = 0.009$ of the $0.031$ it started with: the single binary property of the task absorbs
+about nine tenths of the between-cohort variance. Its assignment of two cohorts to the figure-fixed
+group is the most extreme of the fifteen available, by both the unweighted group difference and the
+weighted coefficient, at the exact $p = 0.067$ that $1/15$ permits and no lower. So the ordering
+this paper argues from the table is reproduced by a model that could have failed in three ways, and
+the honest summary of the method is not one number but two: about $+0.10$ where the task fixes the
+figure, and about $+0.002$ where the shape carries the label.
+
+\paragraph{Corrected across the six, one contrast survives --- and the family contains its own
+counterexample.} As one Holm family, \textsc{Zhu} survives at $p = 0.031$ and
+\textsc{ParkinsonHW} does not, at $p = 0.259$, which is what \cref{sec:results} already said of
+both; the correction costs one number rather than a claim. What the family exposes is the pair in
+\cref{tab:across}: \textsc{Character Trajectories} is its \emph{most} significant contrast, at
+$p = 0.0006$, with a margin of $+0.008$ --- an order of magnitude inside the noise band, in the
+cohort we describe as the clearest null we have --- while \textsc{ParkinsonHW}'s margin is eleven
+times larger and fails the same correction. Nothing separates them but $853$ units against $51$.
+We did not register this observation and build nothing on it; we print it because it is the sharpest
+case in our data for reporting an effect size with an interval rather than a $p$, and because a
+reader who takes significance as evidence of magnitude would read this family exactly backwards.
+
+\paragraph{Five of the six cohorts could not have detected the pooled effect.} The MDE$_{80}$
+column of \cref{tab:across} runs from $0.006$ to $0.127$, and only \textsc{Character Trajectories},
+with $853$ units, sits below the pooled $+0.017$. The three nulls are therefore absences of
+evidence about an effect of that size, not evidence of its absence --- a distinction the rest of
+this paper, and the literature it sits in, has been making qualitatively. Two consequences we did
+not register and flag as such. \textsc{ParkinsonHW} could detect $0.127$ and measured $0.086$, so
+it was underpowered for its \emph{own} margin, which is why it fails the family rather than
+anything having gone wrong. And \textsc{PaHaW}, the cohort this recipe was first reported on, could
+only have detected $+0.066$ or more: its earlier single-cohort result was not mistaken, it was
+asking a question its $75$ participants could not answer.
+
+\paragraph{A split is worth half of a cohort.} Decomposing the margin over the $600$ draws of
+\cref{sec:splitnoise-appendix} --- six cohorts, twenty fresh master seeds, five repeats --- gives a
+between-cohort standard deviation of $0.037$, a seed-within-cohort standard deviation of $0.018$ and
+a repeat-within-seed standard deviation of $0.037$. A reported margin averages five repeats, so the
+noise on one reported number is the seed term: half of what distinguishes these cohorts from each
+other. A single-split report of a margin this size cannot separate the two, which is a statement
+about the normal practice of this literature and about our own earlier work, not about any cohort
+here.
+
 \subsection{When the encoding helps}
 \label{sec:when}
 
@@ -475,7 +584,9 @@ nothing where the produced shape itself carries the label ($+0.010$, $+0.002$ an
 $+0.010$, $+0.002$ and $+0.008$ under LPQ, the column of \cref{tab:within} in which an encoding gain
 exists at all). The ordering is the same under either column, which is why the rule is stated from
 the pattern rather than from the size of any one gain. It also survives redrawing the splits a
-hundred times, the two groups never once overlapping (\cref{sec:splitnoise-appendix}).
+hundred times, the two groups never once overlapping (\cref{sec:splitnoise-appendix}), and
+\cref{sec:across} estimates rather than narrates it: entered as a moderator, the task property is
+worth $+0.098$ and leaves a ninth of the between-cohort variance behind it.
 \textsc{PaHaW} sits in the second group because seven of its eight
 tasks are writing, although the first is a spiral; its null is also level with its floor, so it
 weighs little either way. \textsc{DiaGraMo}, whose fourteen task slots mix the two regimes, falls
@@ -614,6 +725,15 @@ The application domain is diagnostic. We make no claim of clinical utility for a
 paper: the cohorts are small, the labels are study labels rather than screening outcomes, and the
 margins we report are far from what a deployed decision would require.
 
+One methodological reading generalises past this recipe, and our own family of six contrasts is the
+argument for it. In \cref{tab:across} the most significant contrast is also the smallest, by an
+order of magnitude, and the second largest margin in the study fails the same correction; the only
+difference between the two cohorts is $853$ units against $51$. Significance and magnitude are
+different quantities, a $p$ reports the first, and a literature that compares methods by their $p$
+or by their rank will order cohorts by how many participants were recruited. The endpoint has to be
+an effect size with an interval, and the interval has to be read against what the cohort could have
+detected.
+
 \subsection{Limitations}
 \label{sec:limitations}
 
@@ -629,9 +749,25 @@ tightening a rule once we can see which way that helps.
 
 \paragraph{Cohort sizes.} Four of the seven cohorts have fewer than $130$ participants, the two
 gains among them at $51$ and $58$, so confidence intervals are wide and we report them everywhere,
-not point estimates alone. Nothing here is a sample size from which a clinical claim
+not point estimates alone. \cref{sec:across} puts a number on what that costs: five of the six
+cohorts could not have detected an effect of the pooled size at $80\,\%$ power, and one of them
+could not detect its own margin. Nothing here is a sample size from which a clinical claim
 follows; the result is about when an encoding earns its place in a representation, not about
 screening for disease.
+
+\paragraph{Six studies is a small meta-analysis, and these six are not exchangeable.} The
+across-cohort layer of \cref{sec:across} has $k = 6$. At that size $\hat\tau$ is poorly determined
+whatever estimator is used, which is why we fixed restricted maximum likelihood and the
+Hartung--Knapp interval in the protocol rather than after seeing the spread, and why the
+meta-regression on one binary moderator is reported as descriptive. The exchangeability a
+random-effects model assumes is also false here in any strict reading: two diseases, one
+developmental condition, one non-clinical corpus, four digitisers, and one cohort that is a single
+writer. The pooled value is therefore a summary of six measurements made the same way, not an
+estimate of an effect in a population of cohorts, and the prediction interval is printed with it
+because it is wide for that reason. Four of the six margins are inside the measured split band to
+begin with, so the pooling pools mostly noise on that side; and the split term of the variance
+decomposition is half the size of the between-cohort term, which bounds how much any of this can
+be read from one draw.
 
 \paragraph{The floor is a lower bound on leakage, not an audit.} A cohort whose floor is at chance
 is not thereby clean; it is only clean of the two artefacts we measured. In three of the six cohorts
@@ -674,11 +810,25 @@ LPQ, of which only the second separates from zero, and nothing above $+0.014$ un
 backbone. The controls put that gain where the encoding puts it, and a channel carrying no
 information does not reproduce it. The one experiment that holds cohort, device and session fixed
 did not confirm the rule, on a half where six acquisition descriptors predict the label better than
-any image arm we ran. That is also why the half could not have tested it. If one result here
-outlives the rest, we would
-prefer it to be the floor: two features, no handwriting in them, and on two public benchmarks a
-score that nothing in this paper beats. Reporting a margin over it costs a few lines and changes
-what a score means.
+any image arm we ran. That is also why the half could not have tested it.
+
+Pooled across the six cohorts the encoding is worth $+0.017$ and does not separate from zero, and
+that is the least informative true sentence available about it: the six margins are not one effect
+($\hat\tau = 0.031$, $I^2 = 65\,\%$), and the single task property our rule names absorbs nine
+tenths of the difference. The useful summary is two numbers, not one. Under a frozen ImageNet
+descriptor, by contrast, the six cohorts \emph{are} one effect, and above their floors that effect
+is $+0.001$.
+
+What we would ask of the next paper in this line is a shorter list than our own results. Report the
+cohort's acquisition floor, so the score has a reference point. Give each descriptor its own
+baseline, so a margin is about the channel and not the features. Report what effect the cohort could
+have detected, so a null can be read. Measure the split noise instead of inheriting it. Register the
+direction before drawing the splits, and publish the registrations that failed --- ours are in this
+paper. None of it is expensive, and together it is the difference between a number and a result.
+
+If one result here outlives the rest, we would prefer it to be the floor: two features, no
+handwriting in them, and on two public benchmarks a score that nothing in this paper beats.
+Reporting a margin over it costs a few lines and changes what a score means.
 
 \section*{Back matter}
 
