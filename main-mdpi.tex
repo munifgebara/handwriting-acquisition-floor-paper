@@ -78,17 +78,14 @@
 \noindent
 A recurring recipe turns a sampled trajectory into an image for a vision model: the pen path is
 drawn as ink, and a per-sample signal---speed, pressure, tilt---is painted along it as colour. It
-is cheap and reported to work; when it works, and how much of the gain is the encoding, is less
-clear. We apply one pipeline unchanged to seven handwriting cohorts, five clinical and two
-non-clinical, with identical rendering, descriptors, nested cross-validation and statistics, and
+is cheap and reported to work; when, and how much of the gain is the encoding, is less clear. We apply one pipeline unchanged to seven handwriting cohorts, five clinical and two
+non-clinical, with identical rendering, descriptors, nested cross-validation and statistics,
 every decision registered before any metric. The encoding gains
 $+0.09$ to $+0.11$ macro F1 over the bare trace where the task fixes the figure and only execution
-differs, and nothing where the produced shape carries the label. Pooled over the cohorts it does not
+differs, and nothing where the produced shape carries the label. Pooled across cohorts it does not
 separate from zero, because it is not one effect ($I^2 = 65\,\%$): one task property absorbs nine
-tenths of that heterogeneity, and five of six cohorts could not have detected the pooled effect at
-$80\,\%$ power. Giving each descriptor its own baseline shows most of a reported margin is the
-descriptor, not the encoding: under a frozen ImageNet backbone the cohorts are one effect, and above
-their floors it is $+0.001$. A within-cohort test registered with its direction beforehand was not
+tenths of that heterogeneity, and five of six cohorts lacked the power to detect it. Giving each descriptor its own baseline shows most of a reported margin is the
+descriptor, not the encoding: under a frozen ImageNet backbone the cohorts are one effect of $+0.001$. A within-cohort test registered with its direction was not
 confirmed, and is reported as a failure. Separately, a classifier given two numbers containing no
 handwriting---the sampling interval and the session clock origin---reaches $0.97$ on one public
 clinical benchmark and $0.93$ on another. The quantity carrying evidence is therefore the margin
