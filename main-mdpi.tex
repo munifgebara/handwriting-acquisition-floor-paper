@@ -100,7 +100,6 @@ learning; acquisition artefacts; nested cross-validation; preregistration; Parki
 \section{Introduction}
 \label{sec:intro}
 
-\label{sec:intro}
 
 Converting a time series to an image and classifying the image with a convolutional network is an
 old idea with a steady stream of new instances. In the handwriting literature the specific form is
@@ -168,7 +167,6 @@ about handwriting, and the reader currently has no way to tell.
 \subsection{Related work}
 \label{sec:related}
 
-\label{sec:related}
 
 \paragraph{Time series as images.} Encoding a sequence as a picture for an image model spans
 recurrence plots \citep{eckmann1987recurrence}, Gramian angular fields and
@@ -196,7 +194,6 @@ cheap enough to report with every result, and which we show is not a corner case
 \subsection{Pseudodynamic minimaps}
 \label{sec:method}
 
-\label{sec:method}
 
 A recording is a sequence of samples $p_i = (x_i, y_i, t_i, c_i, \mathbf{s}_i)$, with position,
 timestamp, a contact flag and a vector of per-sample signals. Only segments with contact at both
@@ -250,7 +247,6 @@ contribution from the descriptor's.
 \subsection{Cohorts}
 \label{sec:cohorts}
 
-\label{sec:cohorts}
 
 Seven cohorts, chosen to vary the instrument, the population and --- critically --- whether the
 produced shape carries the label.
@@ -288,7 +284,6 @@ regression control.
 \subsection{Evaluation protocol}
 \label{sec:protocol}
 
-\label{sec:protocol}
 
 Every cohort is evaluated identically, and every decision --- inclusion rule, task definition,
 contact rule, unit conversion, split design --- was written into a per-cohort protocol document
@@ -351,7 +346,6 @@ the correspondence between position and value is destroyed.
 \subsection{The acquisition floor}
 \label{sec:floor}
 
-\label{sec:floor}
 
 \begin{definition}[Acquisition floor]
 For a cohort $\mathcal{D}$ and an evaluation protocol $\Pi$, the acquisition floor
@@ -403,7 +397,6 @@ were reviewed by the authors, and the authors take full responsibility for the c
 \section{Results}
 \label{sec:results}
 
-\label{sec:results}
 
 \input{tables/headline}
 
@@ -515,7 +508,14 @@ not the two floor-swallowed cohorts are included. Read alone that number would s
 nothing. It does not say that, because the six margins are not one effect: $\hat\tau = 0.031$,
 $I^2 = 65\,\%$, $Q = 14.3$ on five degrees of freedom ($p = 0.014$), and the prediction interval for
 a new cohort runs from $-0.078$ to $+0.113$. Pooling an effect that exists in one regime and not the
-other returns a number describing neither regime. We report it because a reader is entitled to the
+other returns a number describing neither regime. One caveat belongs in the text rather than in a
+footnote: $\hat\tau = 0.031$ clears the threshold we registered by $0.0007$, and the
+DerSimonian--Laird estimator of the same quantity returns $0.021$, which would not clear it. REML
+was fixed in the protocol before the run, and for the stated reason that the method-of-moments
+estimator is biased downward at six studies, so the verdict stands as declared; but the part of
+this result that does not depend on that choice is $I^2$ and $Q$, computed from fixed-effect
+weights, and they are what we rest the conclusion on. Of the four LPQ configurations in
+\cref{tab:pooled}, two clear $0.03$ under either estimator. We report it because a reader is entitled to the
 pooled estimate, and we report the heterogeneity beside it because that is what makes the pooled
 estimate uninterpretable.
 
@@ -529,13 +529,14 @@ painting the dynamics on the trace adds nothing, anywhere, and the cohorts agree
 
 \paragraph{The rule, as a model.} Entering the declared moderator --- whether the task fixes the
 figure --- gives a coefficient of $+0.098$, against a registered threshold of $+0.050$, and leaves
-$\hat\tau = 0.009$ of the $0.031$ it started with: the single binary property of the task absorbs
-about nine tenths of the between-cohort variance. Its assignment of two cohorts to the figure-fixed
+$\hat\tau = 0.009$ of the $0.031$ it started with --- a tenth of the variance, since variance goes as
+the square, so the single binary property of the task absorbs about nine tenths of it.
+Its assignment of two cohorts to the figure-fixed
 group is the most extreme of the fifteen available, by both the unweighted group difference and the
 weighted coefficient, at the exact $p = 0.067$ that $1/15$ permits and no lower. So the ordering
 this paper argues from the table is reproduced by a model that could have failed in three ways, and
-the honest summary of the method is not one number but two: about $+0.10$ where the task fixes the
-figure, and about $+0.002$ where the shape carries the label.
+the honest summary of the method is not one number but two: the model's fitted $+0.099$ where
+the task fixes the figure, and $+0.002$ where the shape carries the label.
 
 \paragraph{Corrected across the six, one contrast survives --- and the family contains its own
 counterexample.} As one Holm family, \textsc{Zhu} survives at $p = 0.031$ and
@@ -572,7 +573,6 @@ here.
 \subsection{When the encoding helps}
 \label{sec:when}
 
-\label{sec:when}
 
 \paragraph{The rule.} The pattern in \cref{tab:headline} separates the cohorts into two groups: the
 minimap gains where the produced figure is imposed by the task and the label lives in the execution
@@ -734,7 +734,6 @@ detected.
 \subsection{Limitations}
 \label{sec:limitations}
 
-\label{sec:limitations}
 
 \paragraph{The noise band was inherited, not measured.} The $\pm 0.03$ we read the nulls against
 came from an earlier study on one of these cohorts. We measured it afterwards
@@ -755,7 +754,8 @@ screening for disease.
 \paragraph{Six studies is a small meta-analysis, and these six are not exchangeable.} The
 across-cohort layer of \cref{sec:across} has $k = 6$. At that size $\hat\tau$ is poorly determined
 whatever estimator is used, which is why we fixed restricted maximum likelihood and the
-Hartung--Knapp interval in the protocol rather than after seeing the spread, and why the
+Hartung--Knapp interval in the protocol rather than after seeing the spread --- a choice worth
+$0.0007$ of threshold on the headline configuration, which \cref{sec:across} reports --- and why the
 meta-regression on one binary moderator is reported as descriptive. The exchangeability a
 random-effects model assumes is also false here in any strict reading: two diseases, one
 developmental condition, one non-clinical corpus, four digitisers, and one cohort that is a single
@@ -797,7 +797,6 @@ the rule without carrying an interval.
 \section{Conclusions}
 \label{sec:conclusion}
 
-\label{sec:conclusion}
 
 One pipeline across seven cohorts supports a narrow claim, and a narrower one than we set out with:
 painting a per-sample signal along the trace earns its place when the task fixes the figure and the
