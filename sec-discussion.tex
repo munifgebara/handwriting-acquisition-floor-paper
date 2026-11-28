@@ -1,0 +1,162 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Discussion, limitations and future work. Written 28 November 2026.
+%%
+%% The sample-size figures of sec:future come from runs/task_level/per_slot.csv:
+%% n_required = n_units * (mde80 / 0.03)^2, the usual inverse-square scaling of a standard error.
+%% Median over the twenty-seven clinical slots is 480, range 256 to 1,187.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Does the encoding transfer?}
+\label{sec:discussion-transfer}
+
+Narrowly, and to two tasks. The published single-corpus result does reappear outside the corpus it
+came from: on the clean ParkinsonHW sub-cohort and on Zhu the minimap arm beats the bare trace
+under the same descriptor by $+0.086$ and $+0.109$, and the mechanism controls put that gain where
+the encoding puts it --- destroying \emph{where} the painted value sits removes it, while painting a
+channel with no information about the writer does not reproduce it. Both of those corpora prescribe
+the figure, and in both the gain is carried by a single slot: the static spiral and the drawn
+spiral, $+0.152$ and $+0.119$, while their companion slots give $+0.007$ and $+0.060$. A reader who
+wants the one-sentence answer should have this one: the effect is real, it is localised to one task
+in each of two corpora, and over the thirty tasks of this study it pools to zero.
+
+Three qualifications belong in the same breath, because each of them was measured rather than
+suspected. The margins reported for this recipe are in good part a change of descriptor: the
+identical bare trace read by ImageNet features instead of by LPQ is worth $+0.154$ and $+0.265$ on
+those two corpora, and under the backbone no corpus here gains more than $+0.014$ from the encoding.
+Neither of the two superior slots survives Holm correction over the thirty-slot family, while the
+one contrast that does survive is $+0.020$ --- inside the margin we declared as noise. And the
+corpus that carries the largest raw margin of all, the full ParkinsonHW release at $+0.334$, is the
+one whose capture metadata alone reaches $0.97$.
+
+\subsection{The rule we registered does not hold at the task level}
+\label{sec:discussion-rule}
+
+The ordering that motivated this study --- the encoding helps where the task fixes the figure and
+not where the produced shape carries the label --- holds across corpora and fails inside them. With
+corpus fixed effects the task property is worth $-0.0090$ with $p = 0.391$ over an exact enumeration
+whose attainable minimum is $0.00012$. This is the second time this study has asked that question
+with the instrument that can answer it and received a no; the first was the within-corpus contrast on
+DiaGraMo, declared with its direction and failed with the sign reversed.
+
+We take the consequence rather than the escape. The between-corpus ordering is real in the sense
+that it describes the six corpora, but what it tracks is not the task property alone: across corpora
+the instrument, the recruitment, the population and the task all move together, and the component
+that survives being isolated is not the task. The honest reading of the corpus-level moderator ---
+coefficient $+0.098$, nine tenths of the heterogeneity absorbed, $p$ at its attainable minimum --- is
+that it is a good description of six points, not a tested mechanism.
+
+What replaces it is weaker and, we think, more useful. The two sides of the property differ in
+\emph{dispersion} rather than in mean: the figure-imposed slots are heterogeneous around zero
+($\hat\tau = 0.021$, $I^2 = 65\,\%$), the shape-informative slots homogeneous and nearly flat
+($\hat\tau = 0.006$, $I^2 = 17\,\%$). Imposing the figure appears to be a necessary condition for a
+large margin and nowhere near a sufficient one: ten of DiaGraMo's imposed slots produce nothing, and
+three of them are reliably negative. That is a hypothesis for a study designed around it, and it is
+stated here as one.
+
+\subsection{Task-to-task variation exceeds corpus-to-corpus variation}
+\label{sec:discussion-unit}
+
+The quantitative result we did not expect is the variance decomposition. Between slots of one corpus
+$\hat\tau = 0.0098$; between corpora $\hat\tau = 0.0067$. Both are below the median sampling
+standard deviation of a single slot. A field that asks ``does representation $X$ work on dataset
+$Y$'' is asking about the smaller of the two components, with an instrument whose noise exceeds
+both.
+
+This has a direct methodological consequence, and it is the one we would most like to be carried
+forward: the task, not the corpus, is the natural unit for claims of this kind. It is also almost
+free to adopt. The thirty estimates here were produced without rendering an image, fitting a model
+or drawing a split; they are a re-slice of prediction files that any pipeline of this shape already
+writes. The per-task breakdown is what shows that two corpus-level successes are two task-level
+successes, which is not the same claim and not the one a reader of the corpus-level table would
+infer.
+
+\subsection{Equivalence was not available to be claimed}
+\label{sec:discussion-equivalence}
+
+We set out to test whether the encoded image is \emph{as good as} the bare trace where the shape
+already carries the label, and the answer is that these corpora cannot say. Four of fifteen
+shape-informative slots are equivalent at $\delta = 0.03$; eleven are inconclusive, and twenty-six
+of the thirty slots overall have a minimum detectable effect larger than the margin itself. Three of
+the four that do resolve belong to a non-clinical corpus with one writer.
+
+We report this as a failure of H16 and not as a null finding, because the distinction is the point.
+``No difference was found'' and ``the difference was shown to be smaller than $0.03$'' are different
+claims, and only the second is a result. The earlier framing of this work made the first kind of
+statement repeatedly, in the form of margins declared to be inside a $\pm 0.03$ band; every one of
+those was a statement about our precision rather than about the representation.
+
+\subsection{What a reader should take to the next cohort}
+\label{sec:discussion-practice}
+
+Five things, none of them expensive, and all of them things this study got wrong before it got them
+right. Report the corpus's acquisition floor, so a score has a reference point; two of the corpora
+here are partly or wholly separable from capture metadata, and one of them is the corpus the
+original result came from. Give each descriptor its own bare-trace baseline, so a margin is about
+the channel and not about the features. Report what effect the unit could have detected, so that a
+null can be read at all. Measure the split noise instead of inheriting a band. And break the
+endpoint down by task, because a corpus-level margin can be one task's margin diluted by seven
+others --- or, as on DiaGraMo, a mixture of positive and reliably negative slots that averages to
+nothing.
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+Thirty slots are not thirty independent units: fourteen come from one corpus and eight from
+another, so the within-corpus component of the variance decomposition is estimated mainly inside
+DiaGraMo, and the restricted permutation draws its variation from only two corpora. The
+Drot\'ar--Dobe\v{s} recordings carry no task boundaries, so the second dysgraphia cohort contributes
+one slot and cannot inform the within-corpus contrast at all. The acquisition floor is carried as a
+corpus attribute rather than re-estimated per slot, which is a measurement this layer does not have.
+Character Trajectories has a single writer, so its three slots support no participant-level claim
+and enter as recording-level units. PaHaW's task subset was chosen in earlier work, so its eight
+slots are not blind; the primary and the PaHaW-free analyses agree, which is why the verdicts stand.
+The moderator's direction was informed by our own corpus-level results, as the registration states.
+Pooling slots weights a corpus by how many tasks it administered, which makes the slot-level and
+corpus-level pooled estimates two estimands rather than two estimates. And the selected
+representation is chosen inside each corpus's training folds, not inside a slot, so a slot's margin
+is the corpus's chosen arm evaluated there --- deliberately, since selecting per slot would widen
+the family, but it means a slot-specific encoding might do better than any number here.
+
+Finally, the screening of \cref{sec:screening} is a limitation as much as a method. Nineteen of
+twenty-seven candidate corpora could not be obtained by download, and the eight that could are not a
+random sample of handwriting research; they are the corpora whose authors chose open deposition.
+
+\subsection{Future work}
+\label{sec:future}
+
+\paragraph{Corpora sized for the question.} The most actionable number in this paper is a design
+number. Scaling each slot's standard error by the usual inverse square root, resolving a margin of
+$0.03$ at $80\,\%$ power would take a median of $480$ participants per task across the twenty-seven
+clinical slots here, with a range from $256$ to $1{,}187$; seventeen of those twenty-seven would
+need more than twice the participants they have. The largest clinical corpus in this study has
+$273$. Until collections of that size exist, work in this area can report effects and should not
+report equivalence, and a study that wants to compare two representations on one clinical task needs
+to say in advance what effect it could see.
+
+\paragraph{A corpus built for the contrast.} The scarce resource in this design is a corpus that
+elicits both kinds of task from the same participants on the same device in the same session. There
+are two here, and one of them contributes a single figure-imposed slot. A prospective collection
+that administers a balanced battery --- the same participants, half imposed figures and half free
+content --- would test the task property with the confound held fixed by construction rather than by
+a fixed effect, and it is the one experiment that could overturn the verdict of
+\cref{sec:stats-moderator}.
+
+\paragraph{A floor per task.} The acquisition floor is currently a corpus attribute. Computing it
+per slot would show whether the capture artefacts that make two of these corpora partly separable
+are spread across their battery or concentrated in particular tasks, which would change how a
+contaminated corpus is salvaged: a corpus with a clean subset of tasks is more useful than a corpus
+discarded whole.
+
+\paragraph{Task boundaries in the unsegmented corpus.} Locating the elicited tasks inside the
+Drot\'ar--Dobe\v{s} recordings would turn one slot into five and would be the first independent test
+of the task-level contrast outside DiaGraMo. It must be done as its own study, with the
+segmentation fixed before any score is computed, because a segmentation tuned against a metric would
+compromise every number that depends on it.
+
+\paragraph{Selection inside the task.} The arms here are the corpus's chosen encoding evaluated per
+slot. Whether choosing the encoding \emph{per task}, inside training folds, recovers more than the
+corpus-level choice is a well-posed question with a declared family size, and it is the one
+extension of the method itself that these results suggest is worth the multiplicity it costs.

@@ -1,0 +1,167 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Results --- what was measured, without inference. Written 28 November 2026.
+%%
+%% Deliberately descriptive: point estimates, counts and intervals, no verdict and no reading.
+%% Every inferential statement about these numbers is in sec-statistics.tex, which also carries
+%% the plan that was registered before any of them existed.
+%%
+%% Sources, cell by cell:
+%%   headline / within / controls / signature / splitnoise / diagramo ... tables/ (generated)
+%%   corpus-level margins and floors ..... runs/across_cohorts/per_cohort.csv
+%%   null channel ........................ runs/zhu/n1_null_confirmation
+%%   task level .......................... runs/task_level/{per_slot,pooled}.csv
+%%   variance components ................. runs/across_cohorts/variance_components.csv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results}
+\label{sec:results}
+
+This section reports what was measured. It states point estimates, counts and intervals and draws
+no conclusion from them: every test, every verdict against a registered threshold and every
+statement of the form ``therefore'' belongs to \cref{sec:statistics}, which also carries the
+analysis plan as it was registered before these numbers existed. The separation is deliberate, and
+it is how the reader can see which quantities were produced by the runs and which by the analysis.
+
+\subsection{The competitive comparison, corpus by corpus}
+\label{sec:results-headline}
+
+\Cref{tab:headline} gives the four pipelines on the confirmation splits with the participant as the
+unit, together with each corpus's acquisition floor. Read as a margin of the best minimap arm over
+the bare trace, the corpora fall into a wide range: $+0.334$ on the full ParkinsonHW release,
+$+0.252$ on Zhu, $+0.168$ on the clean ParkinsonHW sub-cohort, $+0.050$ on DiaGraMo, $+0.015$ on
+Character Trajectories, $+0.010$ on Drot\'ar--Dobe\v{s} and $+0.002$ on PaHaW.
+
+Four of those seven best arms are the frozen-backbone arm rather than the texture-descriptor arm, so
+four of those margins change the descriptor at the same time as the encoding.
+\Cref{tab:within} therefore gives each descriptor its own bare-trace baseline on the same splits.
+Under LPQ the margins are $+0.086$ (ParkinsonHW, clean), $+0.109$ (Zhu), $+0.010$
+(Drot\'ar--Dobe\v{s}), $+0.008$ (Character Trajectories), $+0.002$ (PaHaW) and $-0.021$ (DiaGraMo).
+Under the frozen backbone they are $+0.014$, $-0.014$, $-0.063$, $+0.001$, $+0.011$ and $-0.011$.
+The largest positive margin under the backbone in any corpus of this study is $+0.014$.
+
+The descriptor swap on the identical bare trace is worth $+0.154$ on the clean ParkinsonHW
+sub-cohort and $+0.265$ on Zhu, and $-0.015$ on PaHaW.
+
+\input{tables/headline}
+\input{tables/within}
+
+\subsection{The acquisition floor}
+\label{sec:results-floor}
+
+The two-feature probe reaches $0.97$ within the \texttt{hw\_dataset} block of the ParkinsonHW
+release and $0.93$ on Drot\'ar--Dobe\v{s}, where it is above every real arm in \cref{tab:headline}.
+On PaHaW it reaches $0.642$. On the clean ParkinsonHW sub-cohort it is $0.666$; on Zhu $0.473$, on
+DiaGraMo $0.453$ and on Character Trajectories $0.501$. In the last three both probe features are
+constant in the release, so the probe is at chance by construction. On Drot\'ar--Dobe\v{s} the
+median sampling interval is constant and the score is the session clock alone.
+
+\subsection{The mechanism controls}
+\label{sec:results-controls}
+
+\Cref{tab:controls} gives the two destructive controls. Where the minimap arm carries a margin,
+shifting the painted signal along each stroke costs between $0.06$ and $0.11$ macro F1; where it
+carries none, the same operation moves the score by at most $0.03$. The within-stroke joint
+permutation behaves in the same direction on the same corpora.
+
+The null-channel probe was run on Zhu, on the confirmation splits. Under LPQ the bare trace reaches
+$0.6272$ and the real speed channel $0.7362$; acquisition order reaches $0.6561$, the
+smoothness-matched AR(1) $0.6125$ and white noise $0.6154$. Under the frozen backbone the same five
+arms reach $0.8926$, $0.8787$, $0.9137$, $0.8860$ and $0.8996$.
+
+\input{tables/controls}
+
+\subsection{The within-corpus task contrast on DiaGraMo}
+\label{sec:results-diagramo}
+
+DiaGraMo is the only corpus that elicits both kinds of task from the same children on the same
+display in the same session. Over its ten figure-imposed slots the minimap margin is $+0.030$, and
+over its four shape-informative slots $+0.069$ (\cref{tab:diagramo}). Against a bare trace
+described by the frozen backbone rather than by LPQ, no task set of this corpus shows a positive
+margin.
+
+\input{tables/diagramo}
+
+\subsection{Split-to-split variation, measured}
+\label{sec:results-splitnoise}
+
+Twenty fresh master seeds per corpus give half-widths of the margin from $0.0021$ to $0.0556$,
+tracking the size of the smaller class rather than the corpus (\cref{tab:splitnoise}). Picking the
+arm on the split it is scored on is worth up to $+0.028$ on one corpus and nothing on five.
+
+\input{tables/splitnoise}
+
+\subsection{The corpus as the unit}
+\label{sec:results-corpus-layer}
+
+Treated as six estimates with their own variances (\cref{tab:across,tab:pooled}), the within-descriptor
+margins pool to $+0.017$ under LPQ with a $95\,\%$ interval of $[-0.029, +0.063]$,
+$\hat\tau = 0.031$, $I^2 = 65\,\%$ and a prediction interval of $[-0.078, +0.113]$. Under the frozen
+backbone they pool to $-0.008$ with $\hat\tau = 0.014$ and $I^2 = 48\,\%$; restricted to the four
+corpora above their floor, the backbone pools to $+0.001$ with $\hat\tau = 0$ and $I^2 = 0\,\%$.
+
+The binary corpus property --- whether the task fixes the figure --- carries a coefficient of
+$+0.098$ and leaves $0.009$ of the $0.031$ heterogeneity. Its observed assignment is the most
+extreme of the $15$ available, exact $p = 0.067$, which is the smallest value $1/15$ permits.
+
+Each corpus could have detected, at $80\,\%$ power, a margin of $0.127$ (ParkinsonHW, clean),
+$0.109$ (Zhu), $0.066$ (PaHaW), $0.052$ (Drot\'ar--Dobe\v{s}), $0.038$ (DiaGraMo) and $0.006$
+(Character Trajectories). The pooled estimate of $+0.017$ is below five of those six values.
+
+Decomposed over corpus, master seed and repeat, the standard deviation of the margin is $0.0372$
+between corpora, $0.0179$ between master seeds within a corpus and $0.0369$ between repeats within
+a seed.
+
+\input{tables/across}
+\input{tables/pooled}
+
+\subsection{The task as the unit}
+\label{sec:results-task-layer}
+
+\Cref{tab:tasklevel} gives all thirty slots. Two carry a margin whose $90\,\%$ interval clears
+$+0.03$: the static spiral of the clean ParkinsonHW sub-cohort, $+0.152$ with interval
+$[+0.070, +0.236]$, and the spiral of Zhu, $+0.119$ with $[+0.042, +0.200]$. The companion slot of
+each of those two corpora is smaller: the dynamic spiral of ParkinsonHW is $+0.007$ and the Zhu wave
+is $+0.060$, the latter with an interval of $[+0.004, +0.118]$.
+
+Six slots have a $90\,\%$ interval contained in $\pm 0.03$: three graphomotor and writing slots of
+DiaGraMo --- small spiral fast $+0.001$, lower loops fast $+0.006$, copy $+0.001$ --- and the three
+character pairs, $+0.004$, $+0.001$ and $+0.020$. The remaining twenty-two slots have intervals that
+cross one of the two margins. Three slots have an interval entirely below zero without reaching
+$-0.03$: the big spiral, the saw and the rainbow slots of DiaGraMo, at $-0.033$, $-0.028$ and
+$-0.043$.
+
+Eight of PaHaW's slots lie between $-0.025$ and $+0.048$. Its spiral, the only slot of that corpus
+whose figure is imposed, is $+0.016$.
+
+Pooled over the thirty slots (\cref{tab:taskpooled}) the margin is $+0.000$ with a $95\,\%$ interval
+of $[-0.008, +0.009]$, $\hat\tau = 0.0118$ and $I^2 = 53\,\%$. Split by the task property, the
+fifteen figure-imposed slots pool to $-0.001$ with $\hat\tau = 0.0212$ and $I^2 = 65\,\%$, and the
+fifteen shape-informative slots to $+0.005$ with $\hat\tau = 0.0055$ and $I^2 = 17\,\%$. Under the
+frozen backbone the thirty slots pool to $+0.000$ with $\hat\tau = 0$ and $I^2 = 0\,\%$. Dropping
+PaHaW leaves $-0.000$ over twenty-two slots; dropping the corpus whose floor exceeds its best real
+arm leaves $+0.000$ over twenty-nine.
+
+Estimated with corpus fixed effects, the task property carries a coefficient of $-0.0090$. Of the
+$8{,}008$ assignments the restricted enumeration admits, $3{,}128$ are at least as extreme as the
+observed one, exact $p = 0.391$, against an attainable minimum of $0.00012$. The unrestricted
+permutation over all thirty slots gives $-0.0103$ with $p = 0.158$ of $100{,}000$ draws.
+
+The heterogeneity of the thirty slots decomposes into $\hat\tau = 0.0098$ between slots within a
+corpus and $\hat\tau = 0.0067$ between corpora. The median sampling standard deviation of a single
+slot is $0.0164$.
+
+Minimum detectable effects at $80\,\%$ power range from $0.003$ (the \textit{o}/\textit{a} pair of
+Character Trajectories) to $0.142$ (the static spiral of ParkinsonHW). Twenty-six of the thirty
+slots have an MDE$_{80}$ above $0.03$.
+
+\input{tables/tasklevel}
+\input{tables/taskpooled}
+
+\subsection{Reading and rendering verification}
+\label{sec:results-svc}
+
+All nine encodings render on SVC2004, whose seven-field specification is published and unambiguous
+(\cref{tab:signature}). That corpus has no participant endpoint and no acquisition floor and
+contributes to no estimate in this paper.
+
+\input{tables/signature}

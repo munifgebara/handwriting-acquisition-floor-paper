@@ -14,8 +14,33 @@ varias maos. O estudo que produz os numeros vive noutro lugar: `PDM2`, o reposit
 |---|---|---|
 | `main.tex` | ICML (conferencia) | folha do ICML, corpo em 8 paginas, duas colunas |
 | `main-mdpi.tex` | **Applied Sciences** (MDPI), Special Issue *Statistics in Data Science* | formato livre, coluna unica, 16 paginas |
+| `main-transfer.tex` | **Applied Sciences**, mesma SI, **enquadramento novo (28/11/2026)** | formato livre, coluna unica, 26 paginas |
 
-Os dois compartilham `tables/`, `figures/` e `main.bib`, e nenhum numero difere entre eles. Desde
+## O terceiro documento, e por que ele existe
+
+Desde 28/11/2026 o destino de verdade e o `main-transfer.tex`. O `main-mdpi.tex` abre pelo piso de
+aquisicao; este abre pela **pergunta de transferencia** e mantem o piso como instrumento. O eixo:
+
+| peca | conteudo |
+|---|---|
+| contexto | o artigo do VISAPP 2027 esta aceito, revisado, registrado e vai ser apresentado |
+| lacuna | outras bases **no mesmo formato de arquivo** carregam o resultado? |
+| hipotese | carregam onde a tarefa fixa a figura, e sao **equivalentes** ao traco nu onde a forma carrega o rotulo |
+| metodo | a estatistica que separa transferencia, equivalencia e falta de potencia, com a **tarefa** como unidade: 30 fatias em 6 coortes |
+
+As duas hipoteses registradas dessa camada **falharam** (adendo I do protocolo, commitado antes de
+qualquer numero), e o artigo e escrito em torno disso. O corpo esta em arquivos de secao proprios
+(`sec-introduction`, `sec-corpora`, `sec-experiments`, `sec-results`, `sec-statistics`,
+`sec-discussion`, `sec-conclusions`); `sec-encoding`, `sec-protocol` e `sec-backmatter` foram
+reaproveitados sem reescrita da revisao celula a celula de 21-22/11.
+
+Nada do enquadramento antigo foi apagado: `main-mdpi.tex` e `main.tex` continuam compilando.
+
+**Pendencia dos autores:** o titulo e o resumo enviados ao editor em 25/11 sao do enquadramento
+antigo. Se a mensagem ja saiu, a mudanca precisa ser comunicada; se nao, o titulo e o resumo novos
+estao no `main-transfer.tex`.
+
+Os tres compartilham `tables/`, `figures/` e `main.bib`, e nenhum numero difere entre eles. Desde
 25/11/2026 ha **uma diferenca de conteudo**, e ela e deliberada: a camada entre coortes (adendo H do
 protocolo --- agregacao por efeitos aleatorios, heterogeneidade, o moderador, a familia de Holm das
 seis, a potencia por coorte e as componentes de variancia) esta so no `main-mdpi.tex`, com as

@@ -1,0 +1,220 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The statistical analysis: the plan as registered, then applied. Written 28 November 2026.
+%%
+%% Every threshold quoted here is in protocols/PROTOCOL-common.md and was committed before the
+%% quantity it judges existed. The commits are named in the text on purpose: for this journal the
+%% audit trail is part of the method, not an appendix to it.
+%%
+%% Sources: runs/task_level/{per_slot,pooled,variance_components,moderator,equivalence}.*
+%%          runs/across_cohorts/* for the corpus-level layer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Statistical analysis}
+\label{sec:statistics}
+
+The numbers of \cref{sec:results} are judged here, against thresholds that were written down before
+those numbers existed. We give the plan first in each subsection and then apply it, because for
+this study the order matters: the plan is version-controlled and dated, and the only reason its
+verdicts can be taken at face value is that it could not have been written after the fact.
+
+\subsection{How the plan was registered}
+\label{sec:registration}
+
+Each corpus has a protocol document fixing its inclusion rule, task definition, contact rule, unit
+conversion and split design, committed before any classifier was fitted on that corpus. Where the
+study's own results forced a question the protocol had not anticipated, the answer is a dated
+addendum committed \emph{before} the run it governs, never a rewrite: addendum~B declared the
+within-corpus task contrast of \cref{sec:results-diagramo}; C the control arms under the backbone;
+E the null-channel probe; F the per-descriptor baseline; G the split-noise measurement; H the
+corpus-level layer; and I the task-level layer of this section, committed as \texttt{4c3eb0e} at a
+point when no per-slot quantity on the confirmation splits had been computed and the script that
+computes them did not exist.
+
+Three disclosures are part of the registration rather than of the discussion, because they bound
+what the verdicts below can mean, and all three were written into addendum~I before it ran. First,
+the direction of the task property is \emph{not} a blind prediction: it is this study's own
+corpus-level ordering, restated as a model so that it could fail. Second, the two task sets of
+DiaGraMo had already been compared under addendum~B and that comparison had already failed, so
+addendum~I recorded in advance that H15 --- the null --- was the outcome it expected. Third, PaHaW's
+tasks are not blind, since the prior single-corpus paper reported its endpoint over a subset of
+slots; PaHaW is therefore carried in the primary analysis and removed again in a declared
+sensitivity analysis.
+
+\subsection{Within a corpus}
+\label{sec:stats-within}
+
+Intervals are $10{,}000$ label-stratified participant bootstrap resamples; paired contrasts use
+participant-wise swap randomisation; all repeats of a participant move together, so no resample
+splits a participant across arms. These are the same estimators, with the same seeds, as the prior
+single-corpus study, and the task-level layer reuses them unchanged --- which is what makes its
+regression control meaningful: the participant-level margin re-derived from the task-level
+prediction files reproduces the archived value in all twelve corpus-by-descriptor cells to within
+$5 \times 10^{-5}$.
+
+\subsection{Equivalence, instead of a null result}
+\label{sec:stats-equivalence}
+
+\paragraph{The plan.} A margin that lands inside an interval containing zero is not evidence of
+equivalence; it is also what too few participants look like. We therefore declared a margin
+$\delta = 0.03$ macro F1 and two one-sided tests at $\alpha = 0.05$, which read the $90\,\%$
+interval of a slot's margin \citep{schuirmann1987,lakens2018equivalence}. Each slot receives exactly
+one of four outcomes: \emph{superior} when the lower bound clears $+\delta$, \emph{inferior} when
+the upper bound falls below $-\delta$, \emph{equivalent} when the whole interval lies inside
+$\pm\delta$, and \emph{inconclusive} otherwise. ``Inconclusive'' is a statement about precision and
+is never reported as equality.
+
+The margin is not a convenience. It is the band this project has used since the single-corpus work
+to mean ``within split noise'', and \cref{sec:results-splitnoise} measures the half-widths that
+justify it. One value is used for all thirty slots, because a margin taken from each slot's own
+noise would make the threshold depend on the data it judges.
+
+\paragraph{Applied.} Of the thirty slots, two are superior, six are equivalent, twenty-two are
+inconclusive and none is inferior. \textbf{H16} required at least $8$ of the $15$
+shape-informative slots to be declared equivalent; $4$ are, so \textbf{H17 holds}. The claim that
+the encoding is demonstrably as good as the bare trace where the shape carries the label is
+\emph{not} supported at this margin --- not because the margins there are large, but because eleven
+of those fifteen slots cannot resolve $0.03$: twenty-six of the thirty slots have an
+MDE$_{80}$ above the margin itself. The four slots that do support it are the three character
+pairs, whose standard errors are an order of magnitude smaller than any clinical slot's, and the
+copy slot of DiaGraMo.
+
+This is the first place in this study where an equivalence claim was available to be made, and the
+answer is that the data do not carry it. Every ``inside the $\pm 0.03$ band'' sentence in the
+earlier framing of this work was a power statement.
+
+\subsection{Pooling thirty slots nested in six corpora}
+\label{sec:stats-pooling}
+
+\paragraph{The plan.} Slot margins are pooled by random effects fitted with restricted maximum
+likelihood and reported with a Hartung--Knapp interval \citep{hartung2001}, fixed in advance because
+the method-of-moments estimator is biased downward at this number of studies
+\citep{viechtbauer2005}. We report $\hat\tau$, $I^2$ \citep{higgins2002} and a prediction interval
+beside every pooled point, because a pooled point summarises an effect only if there is one effect.
+Thirty slots measured on six groups of people are not thirty independent units, so heterogeneity is
+decomposed: the same estimator with an intercept gives the total, and with corpus fixed effects ---
+which absorb every between-corpus difference --- gives what remains between slots of one corpus.
+
+\paragraph{Applied.} Over the thirty slots the pooled margin is $+0.000$, interval
+$[-0.008, +0.009]$, with $\hat\tau = 0.0118$ and $I^2 = 53\,\%$. Neither sensitivity analysis moves
+it: $-0.000$ without PaHaW, $+0.000$ without the corpus whose floor exceeds its best real arm.
+Under the frozen backbone the thirty slots are one effect of $+0.000$ with $\hat\tau = 0$.
+
+The decomposition is the result of this subsection, and it was measured rather than tested, as
+addendum~I declared. Between slots of one corpus $\hat\tau = 0.0098$; between corpora
+$\hat\tau = 0.0067$. \textbf{Task-to-task variation inside a corpus is larger than
+corpus-to-corpus variation}, and both are smaller than the median sampling standard deviation of a
+single slot, $0.0164$. The heterogeneity that the corpus-level layer attributed to differences
+between corpora ($\hat\tau = 0.031$, $I^2 = 65\,\%$) does not survive being asked at which level it
+lives.
+
+One consequence of the change of unit must be stated and was not registered, so we flag it as an
+unregistered observation: pooling slots weights a corpus by how many tasks it administered, so
+DiaGraMo contributes fourteen units and Drot\'ar--Dobe\v{s} one. The slot-level pooled estimate of
+$+0.000$ and the corpus-level $+0.017$ are therefore not competing estimates of one quantity; they
+are two different estimands, and which one answers a question depends on whether the question is
+about corpora or about tasks.
+
+\subsection{The task property, tested within corpora}
+\label{sec:stats-moderator}
+%% Alias for the labels the shared generated tables reference. tables/*.tex are emitted by
+%% scripts/x3_paper_tables.py for all three builds and their captions cite the earlier
+%% draft's section names; aliasing here keeps one generator for three documents instead of
+%% branching it per document.
+\label{sec:when}
+
+\paragraph{The plan.} The corpus-level test of this property is bounded by arithmetic: with six
+corpora and two on one side, the exact permutation cannot return a $p$ below $1/15 = 0.067$, which
+addendum~H stated in advance and never called significance. The task-level test is not bounded that
+way. The property is entered in a meta-regression \emph{with corpus fixed effects}, so the
+coefficient is a within-corpus contrast and no between-corpus difference can reach it, and it is
+tested by a \textbf{restricted permutation} that holds each corpus's number of figure-imposed slots
+fixed and re-labels only inside corpora. Only PaHaW, one of eight, and DiaGraMo, ten of fourteen,
+vary under it, giving $\binom{8}{1}\binom{14}{10} = 8{,}008$ assignments, enumerated exactly, with
+an attainable minimum $p$ of $0.00012$. The weights are held at the fitted model's, which is the
+standard permutation of a meta-regression coefficient and is recorded as an implementation choice.
+\textbf{H14} required both a coefficient $\ge +0.05$ and $p \le 0.05$.
+
+\paragraph{Applied.} The coefficient is $-0.0090$ and $3{,}128$ of the $8{,}008$ assignments are at
+least as extreme as the observed one, exact $p = 0.391$. \textbf{H15 holds}, in both of its
+conditions and with the sign reversed from the prediction. Once the corpus is held fixed, whether
+the task imposes the figure does not account for the slot-level margins. The unrestricted
+permutation, which mixes the between-corpus differences back in, gives $-0.0103$ and $p = 0.158$;
+it is reported for contrast and was declared as such.
+
+The two sides of the property differ, but not in the way the hypothesis named: the fifteen
+figure-imposed slots are \emph{heterogeneous} around zero ($-0.001$, $\hat\tau = 0.0212$,
+$I^2 = 65\,\%$) while the fifteen shape-informative slots are \emph{homogeneous} and slightly
+positive ($+0.005$, $\hat\tau = 0.0055$, $I^2 = 17\,\%$). Where the figure is imposed the encoding
+sometimes does a great deal and usually nothing; where the shape carries the label it reliably does
+almost nothing. That is a different statement from the one we registered, it is not a test, and
+\cref{sec:discussion} treats it as the hypothesis for another study rather than as a result of this
+one.
+
+\subsection{Multiplicity}
+\label{sec:stats-multiplicity}
+
+\paragraph{The plan.} Holm correction \citep{holm1979} within families declared in the protocol.
+The thirty slot contrasts are one such family, declared in addendum~I, and are corrected as one ---
+the family this study actually ran, rather than one family per corpus.
+
+\paragraph{Applied.} Five of the thirty randomisation $p$ values are below $0.05$ uncorrected.
+\textbf{After Holm over the thirty, exactly one survives, and it is the smallest margin of the
+five}: the \textit{m}/\textit{n} character pair, $+0.020$, adjusted $p = 0.003$ --- a contrast whose
+magnitude is inside the equivalence margin. The two slots the equivalence procedure calls superior
+do not survive: the static spiral of ParkinsonHW, $+0.152$, has an adjusted $p$ of $0.123$, and the
+Zhu spiral, $+0.119$, of $0.549$.
+
+The pairing is worth naming, because it is the whole argument of this section in two rows of a
+table. The largest effects in the study are the least certain, and the only certain one is too small
+to matter. The superiority verdicts in \cref{tab:tasklevel} are uncorrected by construction --- the
+equivalence procedure reads an interval, not a corrected $p$ --- and a reader who wants a
+multiplicity-controlled claim about those two spirals does not have one here.
+
+\subsection{Power, reported with every null}
+\label{sec:stats-power}
+
+\paragraph{The plan.} For every unit we report MDE$_{80}$, the margin it could have detected at
+$80\,\%$ power and two-sided $5\,\%$ given its own standard error. A null above a unit's
+MDE$_{80}$ is an absence of evidence; a null below it is evidence of absence. Without the column a
+reader cannot tell which one they are looking at, and this study has published both kinds.
+
+\paragraph{Applied.} At corpus level, five of the six corpora could not have detected the pooled
+margin of $+0.017$; only Character Trajectories, with $853$ recordings of one writer, could. At slot
+level, twenty-six of the thirty slots could not have detected the equivalence margin of $0.03$. The
+eight PaHaW slots need between $0.055$ and $0.108$; the two ParkinsonHW slots $0.142$ and $0.127$;
+the two Zhu slots $0.136$ and $0.096$. The clinical corpora in this literature, at the sizes they
+are released in, are not instruments that can resolve effects of the size this recipe produces.
+
+\subsection{Screening and confirmation as a two-stage design}
+\label{sec:stats-twostage}
+
+\paragraph{The plan.} The two master seeds form a two-stage design whose interim rule was fixed
+before either stage ran: a representation reaches confirmation only if it leads at screening, and no
+margin is reported as a gain unless it reappears on the confirmation seed inside the declared band.
+We claim \emph{no} propagation of $\alpha$ between the stages --- they are separate families and the
+confirmation intervals are not widened for having passed a screen.
+
+\paragraph{Applied.} What the screen can buy is measured instead of argued: picking the arm on the
+split it is scored on is worth up to $+0.028$ on one corpus and nothing on five. Every number in
+\cref{sec:results} is from the confirmation stage, and the task-level layer draws no new split at
+all --- it re-slices the confirmation predictions, so it inherits that stage's separation rather
+than creating a third one.
+
+\subsection{What the registrations predicted, and what happened}
+\label{sec:stats-ledger}
+
+Nine hypotheses were registered with a direction and a threshold, across addenda~B, C, E, F, H and
+I. \textbf{Three held.} H6, the null-channel probe: the gain on Zhu is the channel's content and not
+the mere presence of a varying channel. H10, heterogeneity between corpora under LPQ. H12, the
+corpus-level moderator --- at a $p$ equal to its attainable minimum, which is why it is reported as
+an extremity and not as significance.
+
+\textbf{Six failed.} H1 and H2, the within-corpus task contrast on DiaGraMo, with the sign reversed.
+H4, the spatial controls under the frozen backbone, where the test dissolved its own target because
+the backbone had no margin left for a control to destroy. H8, that at least half of a reported
+margin survives a descriptor-matched baseline --- refused on all three corpora that had a margin to
+decompose. H14, the task property within corpora. H16, equivalence on the shape-informative slots.
+
+We report the ledger rather than only its favourable rows because the ledger is the result. A study
+of this shape earns its conclusions from the registrations that failed, and this one has more of
+those than of the other kind.

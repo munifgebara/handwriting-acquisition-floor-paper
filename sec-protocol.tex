@@ -1,0 +1,79 @@
+\subsection{Evaluation protocol}
+\label{sec:protocol}
+
+
+Every cohort is evaluated identically, and every decision --- inclusion rule, task definition,
+contact rule, unit conversion, split design --- was written into a per-cohort protocol document
+\emph{before} any classifier was fitted on that cohort. Where the direction of the study changed
+mid-stream, the protocol carries a dated addendum, not a rewrite.
+
+\paragraph{Partitions.} Five repeats of five stratified outer folds, three inner folds for
+selection, nested so that representation and hyperparameters are chosen on training participants
+only. \textbf{The participant is the unit}: all recordings of a participant are in the same fold,
+and participant decisions are the majority vote over the available tasks. Screening and
+confirmation use disjoint master seeds; we treat split-to-split variation of $\pm 0.03$ macro F1 as
+noise, and report no gain that does not reappear on the confirmation seed. That band was inherited
+rather than measured; \cref{sec:results-splitnoise} measures it on twenty fresh seeds per corpus
+and reports where it is too narrow.
+
+\paragraph{Statistics, within a cohort.} Confidence intervals are $10{,}000$ label-stratified
+participant bootstrap resamples. Paired contrasts use participant-wise swap randomisation.
+Multiplicity is corrected by the Holm procedure \citep{holm1979} within families declared in the
+protocol.
+
+\paragraph{Spatial controls.} To test whether a gain comes from \emph{where} the signal sits, we
+apply two destructive controls at render time, each preserving every per-stroke marginal exactly:
+a \emph{circular shift} of the signal values along each stroke, and a \emph{joint permutation} of
+the signal values within each stroke. Both leave the ink and the colour histogram identical; only
+the correspondence between position and value is destroyed.
+
+\subsection{The acquisition floor}
+\label{sec:floor}
+
+
+\begin{definition}[Acquisition floor]
+For a cohort $\mathcal{D}$ and an evaluation protocol $\Pi$, the acquisition floor
+$\phi(\mathcal{D}, \Pi)$ is the score that $\Pi$ assigns to a classifier whose only inputs are
+properties of the recording process that no behaviour of the subject can produce.
+\end{definition}
+
+We instantiate it with two features per recording: the \textbf{median sampling interval between
+consecutive contact samples}, and $\log_{10}$ of the \textbf{first timestamp}, that is, the origin
+of the session clock. Neither is a symptom: no disease makes a digitiser sample at $9$~ms instead
+of $7$~ms, and none sets the clock. The second is independent of the writer by construction, the
+first only approximately so, since a digitiser can drop samples under fast motion. That is one
+reason to keep the probe to features whose dependence on behaviour is this weak, and to report wider
+probes separately.
+
+Either input can be a constant in a given release, and saying which is part of reading the floor:
+the median interval varies in one of the six corpora here and the clock origin in three. Where
+both are constant the floor is at chance by construction, and the cohort is clean of these two
+artefacts by inspection of two columns: a stronger statement than a classifier at chance, not a
+weaker one. Where one varies the floor is effectively a one-feature probe: the $0.929$ reported
+below on \textsc{Drot\'ar--Dobe\v{s}} is the session clock alone.
+
+The floor is not chance: chance is a property of the label distribution, while the floor is a
+property of the dataset as assembled and is the level below which a score is uninformative about the
+phenomenon. We therefore report the margin $\Delta_\phi = \text{score} - \phi$ for every arm and
+cohort, and treat it rather than the score as the quantity that carries evidence.
+
+Measuring it costs nothing: it reuses the protocol already in place, and the features are two
+reductions over a timestamp column. We report it for all six cohorts with a participant endpoint,
+including those where our own results are positive.
+
+\subsection{Use of generative AI}
+\label{sec:genai}
+
+Generative AI assistance was used in preparing this work and is disclosed here as the journal
+requires. A large language model (Anthropic Claude) was used as a coding and editing assistant:
+writing and reviewing analysis and rendering code, drafting and copy-editing the manuscript,
+checking every bibliographic record against a registry, and auditing the reported numbers against
+the run artefacts that produced them. It was not used to design the study, to choose hypotheses or
+task subsets, to generate or impute data, or to interpret results; the protocol documents that fix
+every design decision predate it and are dated. All code was executed by the authors, all outputs
+were reviewed by the authors, and the authors take full responsibility for the content.
+% Confirmed by the corresponding author on 2026-11-24 as matching how the tool was actually used
+% across the project. Re-check before submission only if another tool is brought in, or if the
+% division of labour changes during revision.
+
+

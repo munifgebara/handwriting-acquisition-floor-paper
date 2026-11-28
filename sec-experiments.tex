@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The experiments, as declared. Written 28 November 2026.
+%% Every row of the table below is a directory in runs/ and a numbered script in scripts/; the
+%% labels are the ones the protocol documents use, so a reader can go from a sentence here to the
+%% addendum that fixed it and the run that produced it.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The experiments}
+\label{sec:experiments}
+
+Nine experiments, run in the order below, each fixed in a protocol document before it ran. Four are
+the per-corpus chain the prior study defined; five were added as the study's own results forced
+questions it could not answer, and each of those five carries a dated addendum that declares its
+hypotheses with their direction before the run. The two layers that aggregate --- M1 and M2 ---
+fit nothing: they re-analyse prediction files the earlier experiments archived.
+
+\paragraph{E1, the encoding sweep.} Every encoding the corpus admits, under both geometries, on the
+screening splits. Its purpose is to establish that the renderers read the corpus correctly and to
+produce the per-task and per-participant predictions the later steps reuse. No claim is made from
+it.
+
+\paragraph{E2, selection inside training.} The encoding is chosen inside each outer training set by
+inner-fold score, never on test scores and never on the corpus as a whole. What reaches the later
+steps is therefore one arm per outer fold, which is what a practitioner would have.
+
+\paragraph{E3, the competitive comparison.} Four pipelines on the same splits: the bare trace with
+LPQ, the selected minimap with LPQ, a kinematic and pressure feature vector, and a frozen ImageNet
+ResNet18. This is the comparison the prior paper reported on one corpus.
+
+\paragraph{E4, confirmation.} The whole of E2 and E3 repeated on a disjoint master seed
+(20261219) that no screening step ever touched. Every number this paper reports as a result comes
+from this stage; E1--E3 exist to choose arms, not to support claims.
+
+\paragraph{D1, the acquisition floor.} The two-feature probe of \cref{sec:floor}, run under the
+identical protocol in every corpus with a participant endpoint, including the corpora where our own
+arms are positive.
+
+\paragraph{C1 and C2, the mechanism controls.} The circular shift along each stroke and the joint
+permutation within each stroke, rendered and described identically to the real arm, under both
+descriptors. They ask whether a gain depends on \emph{where} the painted value sits.
+
+\paragraph{N1, the null-channel probe.} Three channels that carry nothing about the writer ---
+acquisition order as a ramp, an AR(1) series whose lag-one autocorrelation is matched to the
+recording's own, and white noise --- painted by the identical renderer. The controls above keep the
+real values and move them; this one keeps the geometry and replaces the values, so it asks whether
+a gain is the channel's \emph{content} or merely the presence of a varying channel. We are not
+aware of this control being reported for this family of encodings.
+
+\paragraph{F1, a baseline for each descriptor.} The same confirmation splits with each descriptor
+scored against \emph{its own} bare trace, which separates a change of encoding from a change of
+descriptor. This experiment was added after C2 showed that the headline margin of the prior study
+spanned two descriptors at once.
+
+\paragraph{G1, the split noise, measured.} Twenty fresh master seeds per corpus, to replace the
+inherited $\pm 0.03$ band with a measurement, and to price what picking an arm on the split it is
+scored on is worth.
+
+\paragraph{M1, the corpus-level layer.} The six within-descriptor margins treated as one dataset of
+six estimates with their own variances: pooled effect, heterogeneity, the binary corpus property as
+a moderator, the six contrasts as one multiplicity family, and the minimum detectable effect of each
+corpus.
+
+\paragraph{M2, the task-level layer.} The same quantities with the task slot as the unit: thirty
+slots, the equivalence outcome of each against the fixed margin, the task property estimated
+\emph{within} corpora, and the variance of the margin between slots of one corpus against its
+variance between corpora. This is the experiment the present framing turns on, and
+\cref{sec:statistics} gives its registered plan in full.
+
+\paragraph{What was deliberately not run.} No per-slot selection of the encoding, because selecting
+inside a slot would widen the family and change the estimand; no per-slot acquisition floor, which
+is possible and is left to future work (\cref{sec:future}); no re-tuning of any hyperparameter grid
+per corpus; and no segmentation of the one corpus whose recordings carry no task boundaries, since
+a segmentation tuned after seeing a score would compromise every other number here.

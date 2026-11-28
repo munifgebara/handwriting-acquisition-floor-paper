@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Introduction --- reframed draft, 28 November 2026.
+%% The framing is the one Munif set: the VISAPP 2027 result is published and settled; the gap is
+%% whether corpora of the SAME FORMAT carry it; the hypothesis is that they do, and that on some
+%% tasks the encoded image is EQUIVALENT to the bare trace; the method is the statistics that can
+%% tell those two apart. The acquisition floor is kept, but as an instrument, not as the headline.
+%%
+%% Numbers appearing here and their source:
+%%   0.645 / 0.614 ............ VISAPP 2027 camera-ready, T2-T4, LPQ+SVM, participant endpoint
+%%   0.97 / 0.93 / 0.64 ....... runs/*/d1_capture_floor (ParkinsonHW hw_dataset, Drotar, PaHaW)
+%%   1/15 ..................... protocols/PROTOCOL-common.md, addendum H, declared before M1 ran
+%%   0.03 ..................... runs/*/g1_split_noise, addendum G; the project's measured band
+%%   +0.014 / +0.086 / +0.109 . runs/across_cohorts/per_cohort.csv, addendum F
+%%   27 / 19 / 8 / 7 / 6 / 30 . reference/LEVANTAMENTO_DATASETS.md and sec-corpora.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\label{sec:intro}
+
+A trajectory sampled by a digitising tablet can be turned into a picture and handed to a vision
+model. In handwriting the construction is unusually direct, because the series already carries a
+faithful two-dimensional embedding: the pen path is drawn as ink in the plane in which it was
+written, and whatever else the digitiser recorded at each sample --- speed, pressure, azimuth,
+altitude --- is painted onto the colour of the stroke at the point where it occurred. Nothing is
+averaged away. A vector of kinematic summary statistics, the dominant representation in this
+literature \citep{drotar2016pahaw,drotar2020dysgraphia}, records how fast the pen moved; an image
+of this kind records \emph{where along the trace} it moved that fast, and leaves the reading of
+that spatial arrangement to a texture descriptor or a convolutional network.
+
+We reported one such encoding --- a \emph{pseudodynamic minimap} --- on the PaHaW corpus of
+Parkinsonian handwriting, where choosing the painted channel inside each outer training fold
+reached $0.645$ participant-level macro F1 against $0.614$ for the bare trace under the same
+descriptor and the same classifier \citep{prior2027minimaps}. That result is peer reviewed and
+published, and it is also precisely as narrow as its design allows: one corpus, one tablet, one
+disease, seventy-five participants, and not a single contrast surviving correction for
+multiplicity. Its reviewers asked for independent cohorts; its own future-work section promised
+them. This paper is that test, and it is a test of the representation rather than a new one.
+
+\paragraph{The gap.} Results for encodings of this family are, with few exceptions, single-corpus
+results: one acquisition device, one recruitment route, and a baseline chosen by the same authors
+who chose the encoding. What makes an external test possible here, and unusually cheap, is that
+the input to the method is a \emph{format} and not a dataset. Any corpus that stores per-sample pen
+coordinates together with a clock can be rendered by identical code, with no redesign and no
+re-tuning; the channels a given corpus happens to lack simply remove variants from the menu
+(\cref{sec:corpora}). Whether the published result holds elsewhere is therefore an answerable
+question, and it had not been answered. It is also an easy question to answer badly. A second
+dataset run through a pipeline re-tuned for it measures the analyst, not the representation. What
+makes the second corpus evidence about the first is holding the renderer parameters, the
+descriptor, the model grid, the split design and the statistics fixed, and writing every
+per-corpus decision down before any metric on that corpus is computed.
+
+\paragraph{The question, and the hypothesis.} The useful question is not whether the encoding works
+but \emph{where}, and the answer has two halves that need different statistics. The first half is
+ordinary: does the margin over the bare trace reproduce outside PaHaW, and how large is it. The
+second is the half this literature habitually gets wrong. On which tasks is the encoded image
+\emph{as good as} the plain trace? An interval that contains zero is not evidence of equivalence,
+and neither is a $p$ above $0.05$: both are also what too few participants look like. Equivalence
+is a claim with a threshold, and the threshold has to be fixed before the data are seen for the
+claim to mean anything \citep{schuirmann1987,lakens2018equivalence}.
+
+We fix it. Our hypothesis, with its direction declared, is that the encoding pays where the
+\emph{task fixes the figure} --- a traced spiral, a copied wave, where patient and control produce
+the same shape and only the execution differs --- and is equivalent to the bare trace where the
+\emph{produced shape itself carries the label}, because there the geometry already contains what
+the painted channel would add. That direction is not a blind prediction, and we do not present it
+as one: it is the ordering our own corpus-level analysis reported, restated as a model so that it
+can fail. What is untested, and what this paper tests, is whether it survives when the unit of
+analysis stops being the corpus.
+
+\paragraph{Why the task is the unit.} Three reasons, and they are why this is a statistics paper
+rather than a benchmark table. First, a corpus changes the instrument, the population and the task
+all at once, so a contrast between corpora cannot attribute anything to the task property the
+hypothesis is about; within a corpus the device and the participants are held fixed by
+construction, and the task contrast is the only one that isolates it. Second, a participant
+contributes exactly one recording to each task, so a per-task endpoint needs no fusion rule --- the
+majority vote over a participant's recordings, which the original protocol required and which mixes
+tasks of unequal difficulty, simply disappears. Third, and decisively for this journal: six corpora
+are six units. The exact permutation test of a binary task property over six units, two of them on
+one side, has a smallest attainable $p$ of $1/15 \approx 0.067$ --- a ceiling we declared before
+running that analysis, and one that no amount of signal can pass. The thirty task-level units of
+\cref{sec:corpora}, fifteen on each side of the property, two corpora of which contain both kinds
+internally, are not bounded that way. They are also not independent, since thirty tasks are
+measured on six groups of people, which is what the hierarchical model of \cref{sec:protocol} is
+for.
+
+\paragraph{What could make all of this meaningless.} Clinical handwriting corpora are assembled
+over months, with patients and controls often recruited through different routes and recorded in
+different sessions. Any quantity that drifts with the session --- the sampling interval, the moment
+the clock was started --- is then correlated with the label without passing through the disease.
+Given those two numbers and no ink whatsoever, a classifier reaches $0.97$ participant-level macro
+F1 inside one of these public clinical benchmarks, $0.93$ inside a second, and $0.64$ on PaHaW,
+where it ties every pipeline we or others have reported on that corpus. We therefore report each
+corpus with that floor beside it, and read each margin against it rather than against zero. The
+claim is not that published models read the clock --- our renderers never see an absolute timestamp
+--- but that a macro F1 of $0.93$ on a benchmark whose floor is $0.93$ is consistent with having
+measured nothing about handwriting at all, and that the reader currently has no way to tell.
+
+\paragraph{Contributions.}
+\begin{itemize}
+\itemsep0em
+
+\item \textbf{A transfer study defined by the data format, with an auditable screening funnel.}
+Twenty-seven candidate corpora were screened against one criterion --- per-sample pen coordinates
+with a clock, publicly obtainable without writing to an author. Nineteen fail it, and we give the
+reason for each; eight were obtained, seven meet the format contract, six carry a participant
+endpoint, and together they contribute thirty task-level units (\cref{sec:corpora}).
+
+\item \textbf{One pipeline, frozen across all of them.} Identical rendering parameters, texture
+descriptor, backbone, model grid, nested cross-validation, fusion rule and statistics in every
+corpus, with every per-corpus decision --- inclusion rule, task definition, contact rule, unit
+conversion, split design --- registered in a protocol document before any classifier was fitted on
+that corpus (\cref{sec:protocol}).
+
+\item \textbf{Equivalence tested, not inferred from a null result.} Each task receives one of three
+outcomes declared in advance --- superior, equivalent, or inconclusive --- against a margin of
+$0.03$ macro F1 that is measured rather than chosen, being this study's own split-to-split
+variation. Inconclusive is reported as inconclusive, and the minimum detectable effect is stated
+for every unit (\cref{sec:protocol}).
+
+\item \textbf{A descriptor-matched baseline, which removes most of the reported margin.} Giving
+each descriptor its own bare-trace baseline shows that the headline margins of this recipe are in
+good part a change of descriptor and not of encoding: under a frozen ImageNet backbone no corpus
+here gains more than $+0.014$, while under the texture descriptor the two transferring corpora gain
+$+0.086$ and $+0.109$ (\cref{sec:results}).
+
+\item \textbf{Mechanism controls that locate the effect, including one that is new.} Shifting the
+painted signal along each stroke and permuting it within each stroke destroy only \emph{where} the
+signal sits; painting a channel that carries nothing about the writer --- acquisition order, a
+smoothness-matched AR(1), white noise --- destroys only \emph{what} the channel says. The first
+returns the gain to its baseline; the second does not reproduce it (\cref{sec:results}).
+
+\item \textbf{The acquisition floor, as an instrument rather than a headline.} We define it, give
+the procedure, and report every result in the paper as a margin over it (\cref{sec:floor}).
+
+\item \textbf{Failures reported as failures.} A within-corpus test of the hypothesis, registered
+with its direction before its splits were drawn, was not confirmed; it is reported as such, and
+what it can and cannot mean is bounded by the floor (\cref{sec:stats-moderator}).
+\end{itemize}
+
+\subsection{Related work}
+\label{sec:related}
+
+\paragraph{Time series as images.} Encoding a sequence as a picture for an image model spans
+recurrence plots \citep{eckmann1987recurrence}, Gramian angular fields and Markov transition fields
+\citep{wang2015gaf}, and more recently direct rasterisations of trajectories. The handwriting case
+differs in that the series already has a faithful two-dimensional embedding, so the encoding does
+not have to invent a geometry: the only question is what to do with the remaining channels.
+
+\paragraph{Handwriting as a clinical signal.} Digitised handwriting has been used as a marker for
+Parkinson's disease, for developmental dysgraphia and for cognitive decline
+\citep{werner2006handwriting}. The dominant representation is a vector of kinematic and pressure
+statistics \citep{drotar2016pahaw,drotar2020dysgraphia}; image-based alternatives are more recent,
+and our baselines include both.
+
+\paragraph{Replication, equivalence and multiplicity.} Treating a published effect as a hypothesis
+to be tested on fresh data, rather than as a result to be extended, is standard practice in fields
+that have examined their own reproducibility \citep{osc2015}, and it dictates the shape of this
+study: the prior result is the hypothesis, the five new corpora are the test, and the analysis plan
+was fixed first. Declaring equivalence requires its own apparatus --- two one-sided tests against a
+margin fixed in advance \citep{schuirmann1987,lakens2018equivalence} --- and pooling heterogeneous
+units requires a model that admits they are heterogeneous
+\citep{higgins2002,hartung2001,viechtbauer2005}. We use all three, and state the limits each of
+them has at this sample size.
+
+\paragraph{Shortcut learning and benchmark validity.} That models latch onto acquisition artefacts
+rather than the phenomenon is well documented \citep{geirhos2020shortcut}, and in medical imaging
+in particular, where scanner and site identity leak into diagnostic labels
+\citep{degrave2021shortcut}. Our contribution is not the observation but the instrument: a floor
+cheap enough to report with every result, and which we show is not a corner case in this domain.

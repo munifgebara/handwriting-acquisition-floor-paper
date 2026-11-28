@@ -1,0 +1,303 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corpora --- reframed draft, 28 November 2026.
+%%
+%% Organised by the new framing: the inclusion criterion is the FILE FORMAT, the screening is
+%% auditable, and the unit of analysis is the TASK. Every structural fact below is traceable:
+%%
+%%   format contract, nine encodings .... docs/01-metodo-minimapas.md; reference/paper_02_encoding.tex
+%%   screening, 27 candidates ........... reference/LEVANTAMENTO_DATASETS.md (13 Nov 2026),
+%%                                       docs/00-origem-e-estado.md (20 Nov 2026 re-search),
+%%                                       plus the 28 Nov 2026 pass recorded in docs/03-bases.md
+%%   task slots per corpus .............. protocols/PROTOCOL-<cohort>.md, section "Tasks";
+%%                                       counts cross-checked against the task_id column of
+%%                                       runs/<cohort>/f1_within_descriptor/task_predictions.csv.gz
+%%   participant and recording counts ... tables/cohorts.tex, generated from runs/
+%%
+%% TODO(before submission): the funnel of 27 -> 19 -> 8 -> 7 -> 6 and the task inventory of
+%% Table~\ref{tab:tasks} should be emitted by scripts/x3_paper_tables.py like every other table in
+%% this paper, so that the counts cannot drift from the runs. They are hand-set here only because
+%% the generator does not yet have a task-level layer to read.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Corpora}
+\label{sec:corpora}
+%% Alias for the labels the shared generated tables reference. tables/*.tex are emitted by
+%% scripts/x3_paper_tables.py for all three builds and their captions cite the earlier
+%% draft's section names; aliasing here keeps one generator for three documents instead of
+%% branching it per document.
+\label{sec:cohorts}
+
+\subsubsection{The inclusion criterion is the file format}
+
+The method consumes a trajectory, not a dataset, so the corpora admitted to this study are defined
+by what their files contain and not by what they are about.
+
+\begin{definition}[Format contract]
+\label{def:contract}
+A corpus is admissible if it releases, for every recording and every sample $i$ of that recording,
+the pen position $(x_i, y_i)$ and a timestamp $t_i$; and if it can be obtained by download, without
+a request to an author. Pressure, azimuth, altitude and a pen-up/pen-down status are optional. Each
+optional channel that is present adds encodings to the menu; each one that is absent removes them.
+\end{definition}
+
+Everything the pipeline needs follows from \cref{def:contract}. Speed is a finite difference of
+$(x, y, t)$ and so is available wherever the contract holds. The nine encodings of the original
+formulation \citep{prior2027minimaps} are the static trace, four single-signal minimaps --- speed,
+pressure, azimuth, altitude --- and the four three-signal RGB triples that can be formed from those
+signals, which requires the full channel set. A corpus with $x$, $y$ and $t$ alone therefore admits
+two of the nine; one that adds a force channel admits three; one that adds pressure and a single
+tablet-specific angle admits five; only the full set admits all nine. This is a property of the
+release, not a defect of the corpus, and we report it per corpus rather than discarding the corpora
+that constrain it: the narrow cases are the ones that test whether the encoding needs the whole
+channel set to pay for itself.
+
+The criterion is deliberately mechanical. ``Corpora resembling the one where the effect was
+reported'' would let the published result choose its own test set, which is the failure mode this
+study exists to avoid. The contract admits a smartphone screen, a child's dictation, a signature
+and a single writer tracing twenty characters, all of which are in what follows, and none of which
+we would have chosen for their resemblance to Parkinsonian handwriting.
+
+\subsubsection{Screening, and what was rejected}
+\label{sec:screening}
+
+Twenty-seven candidate corpora were screened against \cref{def:contract}: an initial survey of the
+handwriting-and-disease literature, two further independent searches, and a confirmatory pass
+immediately before this draft. Nineteen fail the contract, for six distinct reasons, and we record
+the reason for each because the reasons are themselves a finding about the state of this field:
+
+\begin{itemize}
+\itemsep0em
+\item \textbf{Extracted attributes published instead of trajectories} (one corpus). The public
+release gives per-task features, from which no image can be rendered.
+\item \textbf{Static images of the product} (one). The release holds scans of the finished
+handwriting, with no time axis at all.
+\item \textbf{Supporting material that is not the signal} (three). The deposits hold acquisition
+templates, analysis code, or aggregate measures; one Parkinson study's supporting information
+consists of three figures and a methods document.
+\item \textbf{Access conditional on an author request or on ethics approval} (seven). Several state
+the intention to release and have not; one states explicitly that ethical and legal restrictions
+prevent public sharing.
+\item \textbf{Published address no longer serving the data} (one). The address given in the paper
+redirects to a login screen.
+\item \textbf{No public file of the raw series could be located} (six). The papers describe
+per-sample acquisition; no corresponding download exists that we could find.
+\end{itemize}
+
+We stress what this list is not. It is not a judgement of those studies, and the request-to-author
+route is legitimate; it is simply incompatible with a study whose point is that the test set was
+not negotiated. Eight corpora were obtained, each as a published archive whose SHA-256 we recorded
+on download, and the checksums are in the reproducibility package. Of the eight, seven satisfy
+\cref{def:contract}; one does not, and we say so in \cref{sec:newhandpd} rather than quietly
+dropping it. Of the seven, six carry a participant-level diagnostic or identity endpoint and enter
+the task-level analysis; the seventh is a signature corpus whose label lives inside the writer and
+is used, as \cref{sec:svc} explains, to verify that seven channels are read and nine encodings are
+rendered correctly.
+
+\subsubsection{The unit of analysis: thirty tasks}
+\label{sec:tasks}
+
+Each corpus elicits a fixed battery, and each participant contributes at most one recording per
+battery slot. The slot --- the task --- is this study's unit of analysis, for the reasons given in
+\cref{sec:intro}, and \cref{tab:tasks} is the complete inventory: thirty slots over six corpora.
+
+The property the hypothesis turns on is assigned per slot, before any task-level quantity is
+computed, by a rule that does not look at the data: a slot is \emph{figure imposed} when every
+participant is asked to produce the same shape, so that what differs between the classes is the
+execution, and \emph{shape informative} when the produced shape varies with what the participant
+wrote, recalled or was asked to identify. Fifteen slots fall on each side. Two consequences of
+applying the rule at slot level deserve to be stated rather than buried, because both move units
+across the line relative to our own earlier corpus-level analysis. PaHaW is a mixed battery: its
+Archimedean spiral is figure imposed, while its seven letter, word and sentence slots are shape
+informative, so the corpus that was one ambiguous unit becomes one unit of the first kind and seven
+of the second. Character Trajectories prescribes which character to write, but the character
+\emph{is} the label, so all three of its slots are shape informative --- the extreme of that side,
+and the reason the corpus is in the study.
+
+% TODO(generator): emit this from scripts/x3_paper_tables.py. Counts verified on 28 Nov 2026
+% against the task_id column of runs/<cohort>/f1_within_descriptor/task_predictions.csv.gz.
+\begin{table}[htbp]
+\caption{The thirty task-level units. \emph{Imposed} counts slots in which every participant
+produces the same prescribed shape; \emph{informative} counts slots in which the produced shape
+varies with the content. The assignment rule is fixed in \cref{sec:tasks} and applied before any
+task-level metric. ParkinsonHW is listed on the sub-cohort its acquisition artefact leaves usable
+(\cref{sec:floor}); its third acquisition block is excluded for the reason given in
+\cref{sec:parkinsonhw}. Drot\'ar--Dobe\v{s} contributes a single slot because its released
+recordings carry no task boundaries (\cref{sec:drotar}).}
+\label{tab:tasks}
+\begin{center}
+\begin{small}
+\begin{tabular}{llrrr}
+\toprule
+corpus & battery & slots & imposed & informative \\
+\midrule
+PaHaW & spiral, letters, words, sentence & 8 & 1 & 7 \\
+ParkinsonHW & static and dynamic spiral & 2 & 2 & 0 \\
+Zhu et al. & spiral, wave & 2 & 2 & 0 \\
+DiaGraMo & 10 graphomotor, 4 writing/drawing & 14 & 10 & 4 \\
+Drot\'ar--Dobe\v{s} & one unsegmented recording & 1 & 0 & 1 \\
+Character Trajectories & three character pairs & 3 & 0 & 3 \\
+\midrule
+total & & \textbf{30} & \textbf{15} & \textbf{15} \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}
+
+\input{tables/cohorts}
+
+\subsubsection{PaHaW: the corpus the hypothesis comes from}
+\label{sec:pahaw}
+
+Seventy-five participants, thirty-seven with Parkinson's disease and thirty-eight controls, each
+writing an eight-task battery on a digitising tablet that records all seven channels
+\citep{drotar2016pahaw}. The battery progresses from drawing to writing: an Archimedean spiral
+drawn from the inside out; the cursive letter \textit{l}, the bigram \textit{le} and the trigram
+\textit{les}; the Czech words \textit{lektorka}, \textit{porovnat} and \textit{nepopadnout}, each
+writable without lifting the pen; and the sentence \textit{Tramvaj dnes u\v{z} nepojede}, which
+adds in-air transitions between words. Our copy holds 597 recordings: the spiral has 72 because
+three are absent, and every other slot has one recording per participant. All nine encodings are
+available. This is the corpus on which the encoding was reported \citep{prior2027minimaps}, so in
+this study it is not evidence --- it is the regression control, included unchanged, and a change to
+the pipeline that moves its numbers is a defect rather than an improvement.
+
+\subsubsection{ParkinsonHW: the nearest replication, inside a contaminated release}
+\label{sec:parkinsonhw}
+
+Spiral drawing on a graphics tablet by Parkinson patients and controls, released on the UCI
+repository \citep{isenkul2013parkinsonhw}. Two editions exist and they are the same collection:
+thirty-five of the forty files of the earlier edition are byte-identical to files of the later one,
+and the remaining five pair with named controls. We therefore treat the two editions as one cohort
+of seventy-six participants, which a reader who takes them as independent would double-count.
+
+The documented fields are $x$, $y$, $z$, pressure, a grip angle, a timestamp and a test
+identifier. We discard $z$, which is zero in about ninety-five per cent of samples and undocumented,
+and we do not treat the grip angle as the azimuth or the altitude of the original formulation,
+because the repository's dictionary establishes no such correspondence; it enters as a third signal
+under its own name. Five of the nine encodings are therefore available. The test identifier
+separates three acquisition blocks, of which we keep two --- the static spiral, where the pattern
+to trace is printed, and the dynamic spiral, where it blinks. The third is excluded, and the
+decision was taken from the audit before any model was fitted: its pressure is identically zero for
+whole blocks in twenty-three of the fifty-four participants who have it, which cannot describe a
+pen pressing on a surface, and the readme describes it as circling a point rather than writing.
+
+This corpus also carries the study's clearest acquisition artefact, and the analysis is reported on
+the sub-cohort that artefact leaves usable --- the thirty-six patients of the second release plus
+the fifteen controls, fifty-one participants and ninety-eight recordings. \Cref{sec:floor} gives
+the measurement that forces the restriction; the point here is that the restriction was derived
+from capture metadata alone, never from a classification score.
+
+\subsubsection{Zhu et al.: a finger on a phone}
+\label{sec:zhu}
+
+Fifty-eight participants, twenty-eight with Parkinson's disease and thirty controls, drawing a
+spiral and a wave with a bare fingertip on a smartphone screen \citep{zhu2025smartphone}, released
+as supporting information to that paper: 116 trajectories with $x$ and $y$ in pixels and time in
+milliseconds. There is no pressure and there are no pen angles, so exactly two of the nine
+encodings exist here, the static trace and speed. Contact is implicit in a touch stream, so what
+delimits a stroke had to be decided and written down before anything was rendered.
+
+The scientific value of this corpus is precisely its poverty. It changes the instrument completely
+--- no stylus, no tablet, no pressure --- while keeping the task property fixed, and it is the
+cleanest test in the set of whether a speed channel alone, on two slots, carries anything.
+
+\subsubsection{DiaGraMo: the only corpus that contains both kinds of task}
+\label{sec:diagramo}
+
+Two hundred and seventy-three Czech children, one hundred and fifty-six with handwriting
+difficulties and one hundred and seventeen typically developing, on a Wacom Cintiq pen display that
+records all seven channels \citep{zvoncakova2026diagramo}; 3,796 recordings over fourteen battery
+slots after the release's own exclusion flag is applied. All nine encodings are available. Ten
+slots impose the target figure --- three spirals, five loop tasks, a saw and a rainbow --- and four
+do not: two Rey-complex-figure tasks, recognition and recall, then dictation and copy. The source
+battery has sixteen tasks; the grade-3 and grade-4 versions of dictation and of copy are the same
+task administered twice, so each pair shares a slot and no child contributes two recordings to one
+slot.
+
+This is the pivot of the study. Every other corpus varies the task property only by varying the
+corpus, which varies the device and the population with it. Here the same children, the same
+display and the same session produce both kinds of slot, so the contrast the hypothesis is about
+can be formed with everything else held fixed. It is also the corpus in which our own earlier,
+corpus-level version of that contrast failed, with the margin larger on the side where the
+hypothesis predicted none (\cref{sec:results-diagramo}) --- which is the main reason the present study moves
+to the slot as its unit. The group that collected the material has analysed it with
+direction-based fractional-order derivative features \citep{gavenciak2025fractional}; we cite that
+work to place the corpus and compare against pipelines we ran ourselves rather than against its
+reported numbers.
+
+\subsubsection{Drot\'ar--Dobe\v{s}: the fullest channel set and the coarsest unit}
+\label{sec:drotar}
+
+One hundred and twenty children, fifty-seven with dysgraphia and sixty-three controls, recorded on
+a tablet with all seven channels and explicit pen-up/pen-down status
+\citep{drotar2020dysgraphia}. All nine encodings are available, and this is the second independent
+dysgraphia cohort in the study, which matters because a single dysgraphia result would be a
+property of one clinic.
+
+One recording per child spans several elicited tasks --- repeated letters, syllables, words and a
+sentence --- and the released files carry no task boundaries. Each recording is therefore treated
+as one whole and contributes a single slot, which is why this corpus is one row of \cref{tab:tasks}
+rather than five. The consequence is accepted rather than worked around: no per-task comparison is
+made here, and locating those boundaries is named in \cref{sec:limitations} as the obvious next
+study rather than attempted mid-analysis, since a segmentation tuned after seeing a score would
+compromise everything else.
+
+\subsubsection{Character Trajectories: where the shape is the label}
+\label{sec:chartraj}
+
+Two thousand eight hundred and fifty-eight trajectories of twenty characters by a single writer on
+a tablet that also records tip force \citep{williams2006chartraj}. Three encodings are available:
+the static trace, speed, and force in the place of pressure.
+
+Two properties make it the deliberate null end of the hypothesis. First, the label is the shape: a
+reader identifies a character from ink alone, so there is by construction nothing for a painted
+channel to add that the geometry does not already carry. Three character pairs chosen for shape
+similarity --- \textit{u}/\textit{v}, \textit{o}/\textit{a}, \textit{m}/\textit{n} --- were declared
+before any model was fitted and are the three slots of \cref{tab:tasks}, 853 recordings in all; the
+canonical twenty-class problem over all 2,858 recordings is reported as well, registered as an
+addendum to that corpus's protocol before it ran. Second, there is one writer, so the unit is the
+recording, the participant-level fusion is the identity, and no participant-level claim is made
+here. We report that as a structural difference rather than smoothing over it.
+
+What the release contains is also unusual, and it inverts the contract: the stored quantity is
+velocity, already differentiated, Gaussian-smoothed and normalised by the authors, with the
+trajectory recovered by integration at our end. This is the one corpus in the study whose trace is
+a reconstruction and whose dynamics are the primary record. Its timestamps are likewise
+reconstructed at a fixed rate and it has no clock origin, which makes its acquisition floor chance
+by construction --- and therefore makes it the verification of the floor procedure itself
+(\cref{sec:floor}).
+
+\subsubsection{SVC2004: the rendering and reading check}
+\label{sec:svc}
+
+One thousand six hundred signatures from forty writers, with the same seven fields as PaHaW
+\citep{yeung2004svc}. All nine encodings render, which is what the corpus is for: if the seven
+channels are read in the wrong order, in the wrong units or with the wrong angle convention, this
+is where it shows, because the file specification is published and unambiguous. Its label, genuine
+against skilled forgery, lives inside the writer rather than identifying one, so it has no
+participant endpoint and no acquisition floor, and it is excluded from the task-level analysis by
+construction. It is also a conceptually interesting positive control --- a skilled forger copies
+the shape deliberately, so only the dynamics remain --- and we report it as such
+(\cref{sec:results-svc}) without letting it into the estimand.
+
+\subsubsection{NewHandPD: obtained, and rejected by the contract}
+\label{sec:newhandpd}
+
+Seven hundred and ninety-two signals from sixty-six participants, thirty-one with Parkinson's
+disease and thirty-five controls, recorded by a sensor-equipped pen at a kilohertz. We obtained it, and it
+fails \cref{def:contract}: the release gives six channels of pen-mounted sensor output and no
+position of the tip on the writing surface. There is no trajectory, so there is no image, and no
+result of this study can be read as evidence about this corpus. We report the rejection because
+this corpus is frequently listed alongside the others as a handwriting benchmark, and the
+distinction between ``dynamic handwriting data'' and ``a sampled trajectory'' is exactly the
+distinction \cref{def:contract} is drawing.
+
+\subsubsection{Availability, licences and what we may redistribute}
+\label{sec:availability}
+
+Every corpus analysed here is public, and none of it is ours. We redistribute no recording.
+The reproducibility package releases the code, the per-corpus protocol documents, the configuration
+of every run, the aggregate result tables and the SHA-256 of each archive as downloaded, which is
+what allows the pipeline to be re-run by a reader who obtains the archives themselves. Per-participant
+predictions are not published. SVC2004 is distributed for research use with commercial use
+excluded; the remaining archives carry their own repository or journal terms, which we follow.
